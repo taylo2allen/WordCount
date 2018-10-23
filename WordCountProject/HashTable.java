@@ -4,7 +4,7 @@
  * Stub code for an implementation of a DataCounter that uses a hash table as
  * its backing data structure. We included this stub so that it's very clear
  * that HashTable works only with Strings, whereas the DataCounter interface is
- * generic.  You need the String contents to write your hashcode code.
+ * generic.  You need the String contents to write your hash code code.
  */
 public class HashTable implements DataCounter<String> {
 

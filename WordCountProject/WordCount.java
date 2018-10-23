@@ -16,6 +16,7 @@ public class WordCount {
                 counter.incCount(word);
                 word = reader.nextWord();
             }
+            //message
         } catch (IOException e) {
             System.err.println("Error processing " + file + e);
             System.exit(1);
