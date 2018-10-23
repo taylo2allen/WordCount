@@ -16,7 +16,6 @@ public class WordCount {
                 counter.incCount(word);
                 word = reader.nextWord();
             }
-            //message
         } catch (IOException e) {
             System.err.println("Error processing " + file + e);
             System.exit(1);
@@ -62,10 +61,41 @@ public class WordCount {
     }
 
     public static void main(String[] args) {
-        if (args.length != 1) {
+      /*  if (args.length != 1) {
             System.err.println("Usage: filename of document to analyze");
             System.exit(1);
-        }
-        countWords(args[0]);
+        }*/
+        try {
+        	switch(args[0]){
+        		case "-a":
+        			System.out.println("flag a thrown");
+        			break;
+        		case "-b":
+        			System.out.println("flag b thrown");
+        			break;
+        		case "-h":
+        			System.out.println("flag h thrown");
+        		default:
+        			System.out.println("none of the above");
+        			break;
+        	}
+        	if (args[1] == "-frequency") {
+        		System.out.println("frequency");
+        	}
+        	else if (args[1] == "-num_unique") {
+        		System.out.println("unique");
+        	}
+        	
+        }catch(Exception e) {
+        	System.out.println("error message");
+        };
+        
+        
+        //countWords(args[0]);
     }
+
+	private static void Switch(String string) {
+		// TODO Auto-generated method stub
+		
+	}
 }
