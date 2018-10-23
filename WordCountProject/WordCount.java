@@ -65,7 +65,6 @@ public class WordCount {
             System.err.println("Usage: filename of document to analyze");
             System.exit(1);
         }
-        //test test test
         countWords(args[0]);
     }
 }
