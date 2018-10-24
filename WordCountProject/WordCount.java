@@ -61,127 +61,34 @@ public class WordCount {
     }
 
     public static void main(String[] args) {
-      /*  if (args.length != 1) {
-            System.err.println("Usage: filename of document to analyze");
-            System.exit(1);
-        }*/
-        // try {
-        //   // switch(args[0]){
-        //   //   case "-a":
-        //   //     System.out.println("flag a thrown");
-        //   //     break;
-        //   //   case "-b":
-        //   //     System.out.println("flag b thrown");
-        //   //     break;
-        //   //   case "-h":
-        //   //     System.out.println("flag h thrown");
-        //   //   default:
-        //   //     // System.out.println("none of the above");
-        //   //       throw new Exception("Invalid argument in arg0 must be [ -b | -a | -h ].");
-        //   //     // break;
-        //   // }
-
-        //         if(args[0] == "-a"){
-        //             System.out.println("flag a thrown");
-        //         }
-        //         if(args[0] == "-b"){
-        //             System.out.println("flag b thrown");
-        //         }
-        //         if(args[0] == "-h"){
-        //             System.out.println("flag h thrown");
-        //         }
-        //         else {throw new Exception("Invalid argument in arg0 must be [ -b | -a | -h ].");}
-
-        //         if (args[1] == "-frequency") {
-        //             System.out.println("frequency");
-        //         }
-        //         else if (args[1] == "-num_unique") {
-        //             System.out.println("unique");
-        //         }
-        //         else {throw new Exception("Invalid argument in arg1 must be [ -frequency | -num_unique ].");}
-
-        //   // switch(args[1]){
-        //   //   case "-frequency":
-        //   //     System.out.println("frequency");
-        //   //     break;
-        //   //   case "-num_unique":
-        //   //     System.out.println("unique");
-        //   //     break;
-        //   //   default:
-
-        //   //     // System.out.println("none of the above");
-        //   //       throw new Exception("Invalid argument in arg1 must be [ -frequency | -num_unique ].");
-        //   //     // break;
-        //   // }
-        // }
-        // catch(Exception e){
-        //     System.out.println("Error : " + e.getMessage());
-        // }
+        Switch(args);
     }
            //countWords(args[0]);
 
-    private static void Switch(String string) {
+    private static void Switch(String[] args) {
         // TODO Auto-generated method stub
 
         try {
-          // switch(args[0]){
-          //   case "-a":
-          //     System.out.println("flag a thrown");
-          //     break;
-          //   case "-b":
-          //     System.out.println("flag b thrown");
-          //     break;
-          //   case "-h":
-          //     System.out.println("flag h thrown");
-          //   default:
-          //     // System.out.println("none of the above");
-          //       throw new Exception("Invalid argument in arg0 must be [ -b | -a | -h ].");
-          //     // break;
-          // }
-
-                if(args[0] == "-a"){
+                if(args[0].equals("-a")){
                     System.out.println("flag a thrown");
                 }
-                if(args[0] == "-b"){
+                if(args[0].equals("-b")){
                     System.out.println("flag b thrown");
                 }
-                if(args[0] == "-h"){
+                if(args[0].equals("-h")){
                     System.out.println("flag h thrown");
                 }
                 else {throw new Exception("Invalid argument in arg0 must be [ -b | -a | -h ].");}
-
-                if (args[1] == "-frequency") {
+                if (args[1].equals("-frequency")) {
                     System.out.println("frequency");
                 }
-                else if (args[1] == "-num_unique") {
+                else if (args[1].equals("-num_unique")) {
                     System.out.println("unique");
                 }
                 else {throw new Exception("Invalid argument in arg1 must be [ -frequency | -num_unique ].");}
-
-          // switch(args[1]){
-          //   case "-frequency":
-          //     System.out.println("frequency");
-          //     break;
-          //   case "-num_unique":
-          //     System.out.println("unique");
-          //     break;
-          //   default:
-
-          //     // System.out.println("none of the above");
-          //       throw new Exception("Invalid argument in arg1 must be [ -frequency | -num_unique ].");
-          //     // break;
-          // }
         }
         catch(Exception e){
             System.out.println("Error : " + e.getMessage());
         }
-
-        // catch(Exception arg0_error) {
-        //     System.out.println("Invalid argument in arg0 must be [ -b | -a | -h ].");
-        // }
-        // catch(Exception arg1_error) {
-        //     System.out.println("Invalid argument in arg1 must be [ -frequency | -num_unique ].");
-        // }
-
     }
 }
