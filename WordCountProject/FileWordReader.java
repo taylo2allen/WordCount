@@ -8,7 +8,7 @@ import java.io.StreamTokenizer;
 /**
  * FileWordReader reads words from a file one-by-one, converting to lowercase
  * and eliminating punctuation.  You can read a file in using:
- * 
+ *
  */
 class FileWordReader {
     StreamTokenizer tok;

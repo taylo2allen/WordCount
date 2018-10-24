@@ -5,7 +5,6 @@ import java.io.IOException;
  * descending order. You will need to modify this file.
  */
 public class WordCount {
-
     private static void countWords(String file) {
         DataCounter<String> counter = new BinarySearchTree<String>();
 
@@ -23,6 +22,7 @@ public class WordCount {
 
         DataCount<String>[] counts = counter.getCounts();
         sortByDescendingCount(counts);
+
         for (DataCount<String> c : counts)
             System.out.println(c.count + " \t" + c.data);
     }
@@ -63,27 +63,26 @@ public class WordCount {
     public static void main(String[] args) {
         Switch(args);
     }
-           //countWords(args[0]);
 
     private static void Switch(String[] args) {
         try {
-                if(args[0].equals("-a")){
-                    System.out.println("flag a thrown");
-                }
-                if(args[0].equals("-b")){
-                    System.out.println("flag b thrown");
-                }
-                if(args[0].equals("-h")){
-                    System.out.println("flag h thrown");
-                }
-                else {throw new Exception("Invalid argument in arg0 must be [ -b | -a | -h ].");}
+            if(args[0].equals("-a")){
+                // System.out.println("flag -a");
+            }
+            else if(args[0].equals("-b")){
                 if (args[1].equals("-frequency")) {
-                    System.out.println("frequency");
-                }
-                else if (args[1].equals("-num_unique")) {
-                    System.out.println("unique");
+                    countWords(args[2]);
                 }
                 else {throw new Exception("Invalid argument in arg1 must be [ -frequency | -num_unique ].");}
+            }
+            else if(args[0].equals("-h")){
+                // System.out.println("flag -h");
+            }
+            else {throw new Exception("Invalid argument in arg0 must be [ -b | -a | -h ].");}
+
+            // if ((!args[1].equals("-frequency"))||(!args[1].equals("-num_unique"))){
+            //     throw new Exception("Invalid argument in arg1 must be [ -frequency | -num_unique ].");
+            // }
         }
         catch(Exception e){
             System.out.println("Error : " + e.getMessage());
