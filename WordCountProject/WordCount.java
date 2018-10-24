@@ -66,8 +66,6 @@ public class WordCount {
            //countWords(args[0]);
 
     private static void Switch(String[] args) {
-        // TODO Auto-generated method stub
-
         try {
                 if(args[0].equals("-a")){
                     System.out.println("flag a thrown");
