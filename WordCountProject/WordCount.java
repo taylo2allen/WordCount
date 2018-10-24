@@ -29,20 +29,20 @@ public class WordCount {
 
     /**
      * TODO Replace this comment with your own.
-     * 
+     *
      * Sort the count array in descending order of count. If two elements have
      * the same count, they should be in alphabetical order (for Strings, that
      * is. In general, use the compareTo method for the DataCount.data field).
-     * 
+     *
      * This code uses insertion sort. You should modify it to use a heap sort
      * sorting algorithm. NOTE: the current code assumes the array starts in
      * alphabetical order! You'll need to make your code deal with unsorted
      * arrays.
-     * 
+     *
      * The generic parameter syntax here is new, but it just defines E as a
      * generic parameter for this method, and constrains E to be Comparable. You
      * shouldn't have to change it.
-     * 
+     *
      * @param counts array to be sorted.
      */
     private static <E extends Comparable<? super E>> void sortByDescendingCount(
@@ -65,37 +65,123 @@ public class WordCount {
             System.err.println("Usage: filename of document to analyze");
             System.exit(1);
         }*/
-        try {
-        	switch(args[0]){
-        		case "-a":
-        			System.out.println("flag a thrown");
-        			break;
-        		case "-b":
-        			System.out.println("flag b thrown");
-        			break;
-        		case "-h":
-        			System.out.println("flag h thrown");
-        		default:
-        			System.out.println("none of the above");
-        			break;
-        	}
-        	if (args[1] == "-frequency") {
-        		System.out.println("frequency");
-        	}
-        	else if (args[1] == "-num_unique") {
-        		System.out.println("unique");
-        	}
-        	
-        }catch(Exception e) {
-        	System.out.println("error message");
-        };
-        
-        
-        //countWords(args[0]);
-    }
+        // try {
+        //   // switch(args[0]){
+        //   //   case "-a":
+        //   //     System.out.println("flag a thrown");
+        //   //     break;
+        //   //   case "-b":
+        //   //     System.out.println("flag b thrown");
+        //   //     break;
+        //   //   case "-h":
+        //   //     System.out.println("flag h thrown");
+        //   //   default:
+        //   //     // System.out.println("none of the above");
+        //   //       throw new Exception("Invalid argument in arg0 must be [ -b | -a | -h ].");
+        //   //     // break;
+        //   // }
 
-	private static void Switch(String string) {
-		// TODO Auto-generated method stub
-		
-	}
+        //         if(args[0] == "-a"){
+        //             System.out.println("flag a thrown");
+        //         }
+        //         if(args[0] == "-b"){
+        //             System.out.println("flag b thrown");
+        //         }
+        //         if(args[0] == "-h"){
+        //             System.out.println("flag h thrown");
+        //         }
+        //         else {throw new Exception("Invalid argument in arg0 must be [ -b | -a | -h ].");}
+
+        //         if (args[1] == "-frequency") {
+        //             System.out.println("frequency");
+        //         }
+        //         else if (args[1] == "-num_unique") {
+        //             System.out.println("unique");
+        //         }
+        //         else {throw new Exception("Invalid argument in arg1 must be [ -frequency | -num_unique ].");}
+
+        //   // switch(args[1]){
+        //   //   case "-frequency":
+        //   //     System.out.println("frequency");
+        //   //     break;
+        //   //   case "-num_unique":
+        //   //     System.out.println("unique");
+        //   //     break;
+        //   //   default:
+
+        //   //     // System.out.println("none of the above");
+        //   //       throw new Exception("Invalid argument in arg1 must be [ -frequency | -num_unique ].");
+        //   //     // break;
+        //   // }
+        // }
+        // catch(Exception e){
+        //     System.out.println("Error : " + e.getMessage());
+        // }
+    }
+           //countWords(args[0]);
+
+    private static void Switch(String string) {
+        // TODO Auto-generated method stub
+
+        try {
+          // switch(args[0]){
+          //   case "-a":
+          //     System.out.println("flag a thrown");
+          //     break;
+          //   case "-b":
+          //     System.out.println("flag b thrown");
+          //     break;
+          //   case "-h":
+          //     System.out.println("flag h thrown");
+          //   default:
+          //     // System.out.println("none of the above");
+          //       throw new Exception("Invalid argument in arg0 must be [ -b | -a | -h ].");
+          //     // break;
+          // }
+
+                if(args[0] == "-a"){
+                    System.out.println("flag a thrown");
+                }
+                if(args[0] == "-b"){
+                    System.out.println("flag b thrown");
+                }
+                if(args[0] == "-h"){
+                    System.out.println("flag h thrown");
+                }
+                else {throw new Exception("Invalid argument in arg0 must be [ -b | -a | -h ].");}
+
+                if (args[1] == "-frequency") {
+                    System.out.println("frequency");
+                }
+                else if (args[1] == "-num_unique") {
+                    System.out.println("unique");
+                }
+                else {throw new Exception("Invalid argument in arg1 must be [ -frequency | -num_unique ].");}
+
+          // switch(args[1]){
+          //   case "-frequency":
+          //     System.out.println("frequency");
+          //     break;
+          //   case "-num_unique":
+          //     System.out.println("unique");
+          //     break;
+          //   default:
+
+          //     // System.out.println("none of the above");
+          //       throw new Exception("Invalid argument in arg1 must be [ -frequency | -num_unique ].");
+          //     // break;
+          // }
+        }
+        catch(Exception e){
+            System.out.println("Error : " + e.getMessage());
+        }
+
+        // catch(Exception arg0_error) {
+        //     System.out.println("Invalid argument in arg0 must be [ -b | -a | -h ].");
+        // }
+        // catch(Exception arg1_error) {
+        //     System.out.println("Invalid argument in arg1 must be [ -frequency | -num_unique ].");
+        // }
+
+    }
 }
