@@ -5,23 +5,24 @@ import java.io.IOException;
  * descending order. You will need to modify this file.
  */
 public class WordCount {
-    private static void countWords(String file) {
+    private static void countWords(String file1, String file2) {
         DataCounter<String> counter = new BinarySearchTree<String>();
 
         try {
-            FileWordReader reader = new FileWordReader(file);
+            FileWordReader reader = new FileWordReader(file1);
             String word = reader.nextWord();
             while (word != null) {
                 counter.incCount(word);
                 word = reader.nextWord();
             }
         } catch (IOException e) {
-            System.err.println("Error processing " + file + e);
+            System.err.println("Error processing " + file1 + e);
             System.exit(1);
         }
 
         DataCount<String>[] counts = counter.getCounts();
-        sortByDescendingCount(counts);
+        // sortByDescendingCount(counts);
+        sortByUniqueCount(counts);
 
         for (DataCount<String> c : counts)
             System.out.println(c.count + " \t" + c.data);
@@ -45,8 +46,21 @@ public class WordCount {
      *
      * @param counts array to be sorted.
      */
-    private static <E extends Comparable<? super E>> void sortByDescendingCount(
-            DataCount<E>[] counts) {
+    private static <E extends Comparable<? super E>> void sortByUniqueCount(DataCount<E>[] counts) {
+        for (int i = 1; i < counts.length; i++) {
+            DataCount<E> x = counts[i];
+            int j;
+            for (j = i - 1; j >= 0; j--) {
+                if (counts[j].count <= x.count) {
+                    break;
+                }
+                counts[j + 1] = counts[j];
+            }
+            counts[j + 1] = x;
+        }
+    }
+
+    private static <E extends Comparable<? super E>> void sortByDescendingCount(DataCount<E>[] counts) {
         for (int i = 1; i < counts.length; i++) {
             DataCount<E> x = counts[i];
             int j;
@@ -68,15 +82,35 @@ public class WordCount {
         try {
             if(args[0].equals("-a")){
                 // System.out.println("flag -a");
+                if (args[1].equals("-frequency")) {
+                    countWords(args[2],null);
+                }
+                else if (args[1].equals("-num_unique")) {
+                    // 2797 unique words
+                    // countWords(args[2],null);
+                }
+                else {throw new Exception("Invalid argument in arg1 must be [ -frequency | -num_unique ].");}
             }
             else if(args[0].equals("-b")){
                 if (args[1].equals("-frequency")) {
-                    countWords(args[2]);
+                    countWords(args[2],null);
+                }
+                else if (args[1].equals("-num_unique")) {
+                    // 2797 unique words
+                    // countWords(args[2],null);
                 }
                 else {throw new Exception("Invalid argument in arg1 must be [ -frequency | -num_unique ].");}
             }
             else if(args[0].equals("-h")){
                 // System.out.println("flag -h");
+                if (args[1].equals("-frequency")) {
+                    countWords(args[2],null);
+                }
+                else if (args[1].equals("-num_unique")) {
+                    // 2797 unique words
+                    // countWords(args[2],null);
+                }
+                else {throw new Exception("Invalid argument in arg1 must be [ -frequency | -num_unique ].");}
             }
             else {throw new Exception("Invalid argument in arg0 must be [ -b | -a | -h ].");}
 
