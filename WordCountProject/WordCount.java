@@ -5,7 +5,7 @@ import java.io.IOException;
  * descending order. You will need to modify this file.
  */
 public class WordCount {
-    private static void countWords(String file1, String file2) {
+    private static void countWords(String file1, String file2, boolean bUnique) {
         DataCounter<String> counter = new BinarySearchTree<String>();
 
         try {
@@ -21,11 +21,24 @@ public class WordCount {
         }
 
         DataCount<String>[] counts = counter.getCounts();
-        // sortByDescendingCount(counts);
-        sortByUniqueCount(counts);
+        sortByDescendingCount(counts);
+        // sortByUniqueCount(counts);
 
-        for (DataCount<String> c : counts)
-            System.out.println(c.count + " \t" + c.data);
+        // bUnique = False
+        // bUnique = True
+
+        int uniqueCount = 0;
+
+        if (bUnique) {
+            for (DataCount<String> c : counts)
+                uniqueCount++;
+
+            System.out.println("\n\n" + uniqueCount + " Unique Words Found in \'" + file1 + "'.\n\n");
+        }
+        else{
+            for (DataCount<String> c : counts)
+                System.out.println(c.count + " \t" + c.data);
+        }
     }
 
     /**
@@ -83,7 +96,7 @@ public class WordCount {
             if(args[0].equals("-a")){
                 // System.out.println("flag -a");
                 if (args[1].equals("-frequency")) {
-                    countWords(args[2],null);
+                    // countWords(args[2],null);
                 }
                 else if (args[1].equals("-num_unique")) {
                     // 2797 unique words
@@ -93,22 +106,23 @@ public class WordCount {
             }
             else if(args[0].equals("-b")){
                 if (args[1].equals("-frequency")) {
-                    countWords(args[2],null);
+                    countWords(args[2],null,false);
                 }
                 else if (args[1].equals("-num_unique")) {
                     // 2797 unique words
-                    // countWords(args[2],null);
+                    countWords(args[2],null,true);
                 }
                 else {throw new Exception("Invalid argument in arg1 must be [ -frequency | -num_unique ].");}
             }
             else if(args[0].equals("-h")){
                 // System.out.println("flag -h");
                 if (args[1].equals("-frequency")) {
-                    countWords(args[2],null);
+                    countWords(args[2],null,false);
                 }
                 else if (args[1].equals("-num_unique")) {
                     // 2797 unique words
                     // countWords(args[2],null);
+                    countWords(args[2],null,true);
                 }
                 else {throw new Exception("Invalid argument in arg1 must be [ -frequency | -num_unique ].");}
             }
