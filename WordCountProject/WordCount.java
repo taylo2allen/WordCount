@@ -88,18 +88,83 @@ public class WordCount {
         }
     }
 
-    private static <E extends Comparable<? super E>> void sortByDescendingCount(DataCount<E>[] counts) {
-        for (int i = 1; i < counts.length; i++) {
-            DataCount<E> x = counts[i];
-            int j;
-            for (j = i - 1; j >= 0; j--) {
-                if (counts[j].count >= x.count) {
+    private static <E extends Comparable<? super E>> void sortByDescendingCount(
+            DataCount<E>[] counts) {
+        int n = counts.length - 1;      //last element of array
+        int i = counts.length / 2 - 1;  //parent key
+        int j;                          //child key
+        DataCount temp;                 //temporary counts holder
+        DataCount<E>[] outCounts = new DataCount[counts.length];       //a new DataCount array to be a sorted counts array
+
+        //bubble up the largest values of counts.count
+        while (i >= 0){
+            j = (i * 2) + 1;
+            //if j < n, then there should be one more spot after j. (we won't go past the end of the array)
+            if (j < n){
+                //compare outCounts[j] and outCounts[j+1]. All we want is the index that is largest.
+                if (counts[j].count < counts[j+1].count){
+                    //j+1 is the largest index. increment j.
+                    j++;
+                }
+            }
+            //now compare i and j and move the index with the largest count to i
+            if (counts[j].count > counts[i].count){
+                temp = counts[i];
+                counts[i] = counts[j];
+                counts[j] = temp;
+            }
+            i--;
+        }
+
+        //settle to the bottom
+        //set n to the last element in the array. decrement down to the 0th element and stop.
+        for (n = counts.length - 1; n >= 0; n--){
+            //pop off root (largest) and move last element to root. remove last element.
+            outCounts[(outCounts.length - 1) - n] = counts[0];
+            counts[0] = counts[n];
+            counts[n] = null;
+            //n--;
+            //trickle down the smaller value
+            //start at root and check if children are larger
+            i = 0;                  //parent
+            while ((i * 2) + 1 <= n - 1){
+                j = (i * 2) + 1;    //child
+                //if j < n then we still have space before falling off "end of array" to compare j and j+1
+                if (j < n - 1){
+                    //compare j and j+1 for largest
+                    if (counts[j].count < counts[j+1].count){
+                        //j+1 is larger, so increment j
+                        j++;
+                    }
+                }
+                //compare i and j for largest and swap the largest into i
+                if (counts[i].count < counts[j].count){
+                    temp = counts[i];
+                    counts[i] = counts[j];
+                    counts[j] = temp;
+                    //this child j changed. make i = j and keep moving down.
+                    i = j;
+                } else {
                     break;
                 }
-                counts[j + 1] = counts[j];
             }
-            counts[j + 1] = x;
         }
+        for (int k = 0; k < outCounts.length; k++) {
+            counts[k] = outCounts[k];
+        }
+
+//        for (int i = 1; i < counts.length; i++) {
+//            DataCount<E> x = counts[i];
+//            int j;
+//            for (j = i - 1; j >= 0; j--) {
+//                if (counts[j].count >= x.count) {
+//                    break;
+//                }
+//                counts[j + 1] = counts[j];
+//            }
+//            counts[j + 1] = x;
+//        }
+
     }
 
     public static void main(String[] args) {
