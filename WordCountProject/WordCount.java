@@ -3,15 +3,13 @@
 // Contributors: Taylor Allen, Sam Hendryx, Andrew Cash
 // Date:         10/19/18
 /* Purpose:      The commandline form for WordCount will be as follows:java WordCount [ -b | -a | -h ] [ -frequency | -num_unique ] <filename>
-                  •-b    Use an Unbalanced BST to implement the DataCounter
-                  •-a    Use an AVL Tree
-                  •-h    Use a Hashtable
-                  •-frequency     Print all the word/frequency pairs, ordered by frequency, and then by thewords in lexicographic order
-                  •-num_unique     Print the number of unique words in the document. This is the totalnumber of distinct (different)
+                  • -b    Use an Unbalanced BST to implement the DataCounter
+                  • -a    Use an AVL Tree
+                  • -h    Use a Hashtable
+                  • -frequency     Print all the word/frequency pairs, ordered by frequency, and then by thewords in lexicographic order
+                  • -num_unique     Print the number of unique words in the document. This is the totalnumber of distinct (different)
                   words in the document. Words that appear more than onceare only counted as a single word for this statistic.
  */
-
-
 
 import java.io.IOException;
 
@@ -20,18 +18,18 @@ import java.io.IOException;
  * descending order. You will need to modify this file.
  */
 public class WordCount {
-    private static void countWords(String file1, String file2, boolean bUnique) {
+    private static void countWords(String file1, String file2, boolean bUnique){
         DataCounter<String> counter = new BinarySearchTree<String>();
 
         try {
             FileWordReader reader = new FileWordReader(file1);
             String word = reader.nextWord();
-            while (word != null) {
+            while (word != null){
                 counter.incCount(word);
                 word = reader.nextWord();
             }
-        } catch (IOException e) {
-            System.err.println("Error processing " + file1 + e);
+        } catch (IOException e){
+            System.err.println("\nError processing the file \"" + file1 + "\" Exception: " + e + "\n");
             System.exit(1);
         }
 
@@ -39,12 +37,12 @@ public class WordCount {
         sortByDescendingCount(counts);
         // sortByUniqueCount(counts);
 
-        // bUnique = False
-        // bUnique = True
+        // bUnique = False = run the -frequency flag
+        // bUnique = True = run the -num_unique flag
 
         int uniqueCount = 0;
 
-        if (bUnique) {
+        if (bUnique){
             for (DataCount<String> c : counts)
                 uniqueCount++;
 
@@ -74,12 +72,12 @@ public class WordCount {
      *
      * @param counts array to be sorted.
      */
-    private static <E extends Comparable<? super E>> void sortByUniqueCount(DataCount<E>[] counts) {
-        for (int i = 1; i < counts.length; i++) {
+    private static <E extends Comparable<? super E>> void sortByUniqueCount(DataCount<E>[] counts){
+        for (int i = 1; i < counts.length; i++){
             DataCount<E> x = counts[i];
             int j;
-            for (j = i - 1; j >= 0; j--) {
-                if (counts[j].count <= x.count) {
+            for (j = i - 1; j >= 0; j--){
+                if (counts[j].count <= x.count){
                     break;
                 }
                 counts[j + 1] = counts[j];
@@ -88,12 +86,12 @@ public class WordCount {
         }
     }
 
-    private static <E extends Comparable<? super E>> void sortByDescendingCount(DataCount<E>[] counts) {
-        for (int i = 1; i < counts.length; i++) {
+    private static <E extends Comparable<? super E>> void sortByDescendingCount(DataCount<E>[] counts){
+        for (int i = 1; i < counts.length; i++){
             DataCount<E> x = counts[i];
             int j;
-            for (j = i - 1; j >= 0; j--) {
-                if (counts[j].count >= x.count) {
+            for (j = i - 1; j >= 0; j--){
+                if (counts[j].count >= x.count){
                     break;
                 }
                 counts[j + 1] = counts[j];
@@ -102,53 +100,44 @@ public class WordCount {
         }
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args){
         Switch(args);
     }
 
-    private static void Switch(String[] args) {
+    private static void Switch(String[] args){
         try {
-            if(args[0].equals("-a")){
-                // System.out.println("flag -a");
-                if (args[1].equals("-frequency")) {
-                    // countWords(args[2],null);
+            if (args[0].equals("-a")){
+                if (args[1].equals("-frequency")){
+                    // countWords(args[2],null,false);
                 }
-                else if (args[1].equals("-num_unique")) {
-                    // 2797 unique words
-                    // countWords(args[2],null);
+                else if (args[1].equals("-num_unique")){
+                    // countWords(args[2],null,true);
                 }
                 else {throw new Exception("Invalid argument in arg1 must be [ -frequency | -num_unique ].");}
             }
-            else if(args[0].equals("-b")){
-                if (args[1].equals("-frequency")) {
+            else if (args[0].equals("-b")){
+                if (args[1].equals("-frequency")){
                     countWords(args[2],null,false);
                 }
-                else if (args[1].equals("-num_unique")) {
-                    // 2797 unique words
+                else if (args[1].equals("-num_unique")){
                     countWords(args[2],null,true);
                 }
                 else {throw new Exception("Invalid argument in arg1 must be [ -frequency | -num_unique ].");}
             }
-            else if(args[0].equals("-h")){
-                // System.out.println("flag -h");
-                if (args[1].equals("-frequency")) {
-                    countWords(args[2],null,false);
+            else if (args[0].equals("-h")){
+                if (args[1].equals("-frequency")){
+                    // countWords(args[2],null,false);
                 }
-                else if (args[1].equals("-num_unique")) {
-                    // 2797 unique words
-                    // countWords(args[2],null);
-                    countWords(args[2],null,true);
+                else if (args[1].equals("-num_unique")){
+                    // countWords(args[2],null,true);
                 }
                 else {throw new Exception("Invalid argument in arg1 must be [ -frequency | -num_unique ].");}
             }
+            else if (args[2].equals(null)){throw new Exception("Invalid argument in arg2 must enter a filename.");}
             else {throw new Exception("Invalid argument in arg0 must be [ -b | -a | -h ].");}
-
-            // if ((!args[1].equals("-frequency"))||(!args[1].equals("-num_unique"))){
-            //     throw new Exception("Invalid argument in arg1 must be [ -frequency | -num_unique ].");
-            // }
         }
         catch(Exception e){
-            System.out.println("Error : " + e.getMessage());
+            System.out.println("\nArgument Error : " + e.getMessage() + "\n");
         }
     }
 }
