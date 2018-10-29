@@ -88,23 +88,31 @@ public class WordCount {
     }
 
     private static <E extends Comparable<? super E>> void sortByDescendingCount(DataCount<E>[] counts){
+    HeapSort sortObject = new HeapSort();
+
+        //HeapSort Algorithm brought to you by Sam's Sanity and the letters "ahhhhhhhhhhhhhhh!"
+        sortObject.heapSort(counts);
+
+        /**********************************
+        //			Original Code
         for (int i = 1; i < counts.length; i++){
-            DataCount<E> x = counts[i];
-            int j;
-            for (j = i - 1; j >= 0; j--){
-                if (counts[j].count >= x.count){
-                    break;
+                DataCount<E> x = counts[i];
+                int j;
+                for (j = i - 1; j >= 0; j--){
+                    if (counts[j].count >= x.count){
+                        break;
+                    }
+                    counts[j + 1] = counts[j];
                 }
-                counts[j + 1] = counts[j];
+                counts[j + 1] = x;
             }
-            counts[j + 1] = x;
-        }
+        //			End Original Code
+        **********************************/
     }
 
     public static void main(String[] args){
         Switch(args);
     }
-
     private static void Switch(String[] args){
         try {
             if (args[0].equals("-a")){
