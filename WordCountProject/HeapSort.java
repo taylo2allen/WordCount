@@ -1,3 +1,10 @@
+/**************************************************************
+/	HeapSort Class
+/	Written by: Sam Hendryx for the team
+/	Description: Replaces the insert method in WordCount.java
+/	Takes in an unsorted array and sorts the array
+***************************************************************/
+
 public class HeapSort {
 
     public <E extends Comparable<? super E>> void heapSort(DataCount<E> arr[]){
@@ -5,7 +12,6 @@ public class HeapSort {
         int i;                                                  //parent key
         int j;                                                  //child key
         DataCount temp;                                         //temporary DataCounts holder
-        DataCount<E>[] tempArr = new DataCount[arr.length];     //temporary DataCounts array
 
         //bubble smaller items to the top
         for (i = (arr.length /2) - 1; i >= 0; i--){
