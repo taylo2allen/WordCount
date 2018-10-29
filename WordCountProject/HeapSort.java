@@ -11,7 +11,7 @@ public class HeapSort {
         int n = arr.length - 1;                                 //last element of array
         int i;                                                  //parent key
         int j;                                                  //child key
-        DataCount temp;                                         //temporary DataCounts holder
+        DataCount<E> temp;                                         //temporary DataCounts holder
 
         //bubble smaller items to the top
         for (i = (arr.length /2) - 1; i >= 0; i--){
@@ -90,7 +90,7 @@ public class HeapSort {
     }
 
     public <E extends Comparable<? super E>> void swap(DataCount<E> arr[], int i, int j){
-        DataCount temp;                                         //temporary DataCounts holder
+        DataCount<E> temp;                                         //temporary DataCounts holder
         temp = arr[i];
         arr[i] = arr[j];
         arr[j] = temp;
