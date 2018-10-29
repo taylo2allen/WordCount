@@ -72,6 +72,7 @@ public class WordCount {
      *
      * @param counts array to be sorted.
      */
+
     private static <E extends Comparable<? super E>> void sortByUniqueCount(DataCount<E>[] counts){
         for (int i = 1; i < counts.length; i++){
             DataCount<E> x = counts[i];
