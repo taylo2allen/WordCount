@@ -22,7 +22,7 @@ public class WordCount {
         DataCounter<String> counter = new BinarySearchTree<String>();
 
         try {
-            FileWordReader reader = new FileWordReader(file);
+            FileWordReader reader = new FileWordReader(file1);
             String word = reader.nextWord();
             while (word != null){
                 counter.incCount(word);
@@ -35,6 +35,7 @@ public class WordCount {
 
         DataCount<String>[] counts = counter.getCounts();
         sortByDescendingCount(counts);
+        // sortByUniqueCount(counts);
 
         // bUnique = False = run the -frequency flag
         // bUnique = True = run the -num_unique flag
@@ -55,30 +56,36 @@ public class WordCount {
 
     /**
      * TODO Replace this comment with your own.
-     * 
+     *
      * Sort the count array in descending order of count. If two elements have
      * the same count, they should be in alphabetical order (for Strings, that
      * is. In general, use the compareTo method for the DataCount.data field).
-     * 
+     *
      * This code uses insertion sort. You should modify it to use a heap sort
      * sorting algorithm. NOTE: the current code assumes the array starts in
      * alphabetical order! You'll need to make your code deal with unsorted
      * arrays.
-     * 
+     *
      * The generic parameter syntax here is new, but it just defines E as a
      * generic parameter for this method, and constrains E to be Comparable. You
      * shouldn't have to change it.
-     * 
+     *
      * @param counts array to be sorted.
      */
-  
-    private static <E extends Comparable<? super E>> void sortByDescendingCount(
-            DataCount<E>[] counts) {
-        HeapSort sortObject = new HeapSort();
-
-        //HeapSort Algorithm brought to you by Sam's Sanity and the letters "ahhhhhhhhhhhhhhh!"
-        sortObject.heapSort(counts);
+    private static <E extends Comparable<? super E>> void sortByUniqueCount(DataCount<E>[] counts){
+        for (int i = 1; i < counts.length; i++){
+            DataCount<E> x = counts[i];
+            int j;
+            for (j = i - 1; j >= 0; j--){
+                if (counts[j].count <= x.count){
+                    break;
+                }
+                counts[j + 1] = counts[j];
+            }
+            counts[j + 1] = x;
+        }
     }
+
     private static <E extends Comparable<? super E>> void sortByDescendingCount(DataCount<E>[] counts){
         for (int i = 1; i < counts.length; i++){
             DataCount<E> x = counts[i];
@@ -132,6 +139,5 @@ public class WordCount {
         catch(Exception e){
             System.out.println("\nArgument Error : " + e.getMessage() + "\n");
         }
-        countWords(args[0]);
     }
 }
