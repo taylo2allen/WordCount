@@ -1,3 +1,10 @@
+// Project:     WordCountProject
+// Module:      HashTable.java
+// Contributors:Taylor Allen
+// Date:        10/28/18
+/* Purpose:     Implement the hash table option for the argument -h in WordCount
+ */
+
 /**
  * TODO Replace this comment with your own.
  *
@@ -6,6 +13,7 @@
  * that HashTable works only with Strings, whereas the DataCounter interface is
  * generic.  You need the String contents to write your hash code code.
  */
+
 public class HashTable implements DataCounter<String> {
 
     /** {@inheritDoc} */
