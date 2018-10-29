@@ -18,7 +18,7 @@ import java.io.IOException;
  * descending order. You will need to modify this file.
  */
 public class WordCount {
-    private static void countWords(String file1, String file2, boolean bUnique){
+    private static void countWords(String file1, String file2, boolean bUnique/*, boolean bCorrelate*/){
         DataCounter<String> counter = new BinarySearchTree<String>();
 
         try {
@@ -39,6 +39,8 @@ public class WordCount {
 
         // bUnique = False = run the -frequency flag
         // bUnique = True = run the -num_unique flag
+
+        // bCorrelate = True = doc correlator
 
         int uniqueCount = 0;
 
