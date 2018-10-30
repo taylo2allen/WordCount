@@ -52,15 +52,6 @@ public class Correlator {
         sortByDescendingCount(counts1);
         sortByDescendingCount(counts2);
 
-        int correlationCount1 = 0;
-        int correlationCount2 = 0;
-
-        for (DataCount<String> c : counts1)
-            correlationCount1++;
-
-        for (DataCount<String> c : counts2)
-            correlationCount2++;
-
         // correlation function goes here
         /*remove words with normalized frequencies above %1 and %.01
          *for every word in both take difference between frequencies
@@ -71,15 +62,36 @@ public class Correlator {
          *don't affect correlation.
          */
 
+        int correlationCount1 = 0;
+        int correlationCount2 = 0;
+
+        for (DataCount<String> c : counts1){
+            correlationCount1++;
+        }
+
+        for (DataCount<String> c : counts2){
+            correlationCount2++;
+        }
+
         //normalize frequencies
         //remove top%1
-        // int top1=((int)correlationCount1 * .01);
-        // int top2=((int)correlationCount2 * .01);
 
-        // int bottom1=((int)correlationCount1 * .01);
-        // int bottom2=((int)correlationCount2 * .01);
+        double correlationSum = 0;
 
-        System.out.println(" the count1 is: " + correlationCount1 + " the count2 is: " + correlationCount2);
+        double topCutOff1 = Math.ceil((correlationCount1 * 0.01));
+        double bottomCutOff1 = Math.ceil((correlationCount1 * 0.0001));
+
+        double topCutOff2 = Math.ceil((correlationCount2 * 0.01));
+        double bottomCutOff2 = Math.ceil((correlationCount2 * 0.0001));
+
+        System.out.println(" the count1 is: " + correlationCount1 + "\t\tthe count2 is: " + correlationCount2 + "\n" +
+                           " the topCutOff1 is : " + topCutOff1 + "\tthe topCutOff2 is : " + topCutOff2 + "\n" +
+                           " the bottomCutOff1 is : " + bottomCutOff1 + "\tthe bottomCutOff2 is : " + bottomCutOff2);
+
+        // String[] temp = "";
+        // for (){
+            // temp[topCutOff1] = ;
+        // }
 
 
     }
