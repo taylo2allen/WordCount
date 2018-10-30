@@ -71,6 +71,14 @@ public class Correlator {
          *don't affect correlation.
          */
 
+        //normalize frequencies
+        //remove top%1
+        // int top1=((int)correlationCount1 * .01);
+        // int top2=((int)correlationCount2 * .01);
+
+        // int bottom1=((int)correlationCount1 * .01);
+        // int bottom2=((int)correlationCount2 * .01);
+
         System.out.println(" the count1 is: " + correlationCount1 + " the count2 is: " + correlationCount2);
 
 
