@@ -10,6 +10,9 @@
  */
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * An executable that counts the words in a files and prints out the counts in
@@ -61,33 +64,50 @@ public class Correlator {
          *words in the doc. this assumes words not appearing in both
          *don't affect correlation.
          */
-
+        double correlationSum = 0;
         int correlationCount1 = 0;
         int correlationCount2 = 0;
+        int totalNumWords = 0;
+
+        for (DataCount<String> c: counts1){
+            totalNumWords += c.count;
+        }
+        double freq = 0;
+        Map<String, Double> wordFreq1 = new HashMap<>();
+        Map<String, Double> wordFreq2 = new HashMap<>();
 
         for (DataCount<String> c : counts1){
-            correlationCount1++;
+            //correlationCount1++;
+            freq = c.count/(double)totalNumWords;
+            if (freq < 0.01 && freq > 0.0001){
+                wordFreq1.put(c.data, (c.count / (double) totalNumWords));
+                System.out.println(c.data + "\t\t\t" + wordFreq1.get(c.data));
+            }
         }
-
+        /* DO NOT DELETE!!!!!
         for (DataCount<String> c : counts2){
-            correlationCount2++;
-        }
+            //correlationCount2++;
+            freq = c.count/(double)totalNumWords;
+            if (freq < 0.01 && freq > 0.0001) {
+                wordFreq2.put(c.data, (c.count / (double) totalNumWords));
+                System.out.println(c.data + "\t\t\t" + wordFreq2.get(c.data));
+            }
+        }*/
 
         //normalize frequencies
         //remove top%1
 
-        double correlationSum = 0;
 
-        double topCutOff1 = Math.ceil((correlationCount1 * 0.01));
+        /*double topCutOff1 = Math.ceil((correlationCount1 * 0.01));
         double bottomCutOff1 = Math.ceil((correlationCount1 * 0.0001));
 
         double topCutOff2 = Math.ceil((correlationCount2 * 0.01));
-        double bottomCutOff2 = Math.ceil((correlationCount2 * 0.0001));
+        double bottomCutOff2 = Math.ceil((correlationCount2 * 0.0001));*/
 
-        System.out.println(" the count1 is: " + correlationCount1 + "\t\tthe count2 is: " + correlationCount2 + "\n" +
+        /*System.out.println(" the count1 is: " + correlationCount1 + "\t\tthe count2 is: " + correlationCount2 + "\n" +
                            " the topCutOff1 is : " + topCutOff1 + "\tthe topCutOff2 is : " + topCutOff2 + "\n" +
                            " the bottomCutOff1 is : " + bottomCutOff1 + "\tthe bottomCutOff2 is : " + bottomCutOff2);
-
+        */
         // String[] temp = "";
         // for (){
             // temp[topCutOff1] = ;
