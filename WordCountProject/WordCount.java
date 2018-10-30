@@ -3,11 +3,11 @@
 // Contributors: Taylor Allen, Sam Hendryx, Andrew Cash
 // Date:         10/19/18
 /* Purpose:      The commandline form for WordCount will be as follows:java WordCount [ -b | -a | -h ] [ -frequency | -num_unique ] <filename>
-                 	-b    Use an Unbalanced BST to implement the DataCounter
-                 	-a    Use an AVL Tree
-                  	-h    Use a Hashtable
-                  	-frequency     Print all the word/frequency pairs, ordered by frequency, and then by thewords in lexicographic order
-                  	-num_unique     Print the number of unique words in the document. This is the totalnumber of distinct (different)
+                  -b    Use an Unbalanced BST to implement the DataCounter
+                  -a    Use an AVL Tree
+                    -h    Use a Hashtable
+                    -frequency     Print all the word/frequency pairs, ordered by frequency, and then by thewords in lexicographic order
+                    -num_unique     Print the number of unique words in the document. This is the totalnumber of distinct (different)
                   words in the document. Words that appear more than onceare only counted as a single word for this statistic.
  */
 
@@ -94,30 +94,14 @@ public class WordCount {
 
         //HeapSort Algorithm brought to you by Sam's Sanity and the letters "ahhhhhhhhhhhhhhh!"
         sortObject.heapSort(counts);
-
-        /********************************** TODO Delete!!!!
-        //			Original Code
-        for (int i = 1; i < counts.length; i++){
-                DataCount<E> x = counts[i];
-                int j;
-                for (j = i - 1; j >= 0; j--){
-                    if (counts[j].count >= x.count){
-                        break;
-                    }
-                    counts[j + 1] = counts[j];
-                }
-                counts[j + 1] = x;
-            }
-        //			End Original Code
-        **********************************/
     }
 
     public static void main(String[] args){
         WordCountSwitch(args);
-        CorrelatorSwitch(args);
+        // switchObj.CorrelatorSwitch(args);
     }
-   
-    private static void CorrelatorSwitch(String[] args){
+
+    private static void WordCountSwitch(String[] args){
         try {
             if (args[0].equals("-a")){
                 if (args[1].equals("-frequency")){
