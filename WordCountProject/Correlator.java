@@ -60,10 +60,18 @@ public class Correlator {
         
         for (DataCount<String> c : counts2)
             correlationCount2++;
+        // correlation function goes here
+        /*remove words with normalized frequencies above %1 and %.01
+         *for every word in both take difference between frequencies
+         *square the difference and add the result to a running sum
+         *final result is difference metric. corresponds to the square 
+         *of Euclidean distance between 2 vectors in the space of shared
+         *words in the doc. this assumes words not appearing in both
+         *don't affect correlation.
+         */
         
         System.out.println(" the count1 is: " + correlationCount1 + " the count2 is: " + correlationCount2);
-       // correlation function goes here
-        
+       
         
     }
 

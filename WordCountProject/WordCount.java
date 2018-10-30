@@ -98,7 +98,6 @@ public class WordCount {
 
     public static void main(String[] args){
         WordCountSwitch(args);
-        // switchObj.CorrelatorSwitch(args);
     }
 
     private static void WordCountSwitch(String[] args){
