@@ -3,9 +3,9 @@
 // Contributors: Taylor Allen, Sam Hendryx, Andrew Cash
 // Date:         10/19/18
 /* Purpose:      The commandline form for Correlator will be as follows:java Correlator [ -b | -a | -h ] <filename1> <filename2>
-                 	-b    Use an Unbalanced BST to implement the DataCounter
-                 	-a    Use an AVL Tree
-                 	-h    Use a Hashtable
+                  -b    Use an Unbalanced BST to implement the DataCounter
+                  -a    Use an AVL Tree
+                  -h    Use a Hashtable
                  Uses a function to correlate two documents
  */
 
@@ -18,7 +18,7 @@ import java.io.IOException;
 public class Correlator {
     private static void countWords(String file1, String file2){
         DataCounter<String> counter1 = new BinarySearchTree<String>();
-        
+
         //check first file
         try {
             FileWordReader reader = new FileWordReader(file1);
@@ -51,28 +51,29 @@ public class Correlator {
 
         sortByDescendingCount(counts1);
         sortByDescendingCount(counts2);
-        
+
         int correlationCount1 = 0;
         int correlationCount2 = 0;
-        
+
         for (DataCount<String> c : counts1)
             correlationCount1++;
-        
+
         for (DataCount<String> c : counts2)
             correlationCount2++;
+
         // correlation function goes here
         /*remove words with normalized frequencies above %1 and %.01
          *for every word in both take difference between frequencies
          *square the difference and add the result to a running sum
-         *final result is difference metric. corresponds to the square 
+         *final result is difference metric. corresponds to the square
          *of Euclidean distance between 2 vectors in the space of shared
          *words in the doc. this assumes words not appearing in both
          *don't affect correlation.
          */
-        
+
         System.out.println(" the count1 is: " + correlationCount1 + " the count2 is: " + correlationCount2);
-       
-        
+
+
     }
 
     /**
@@ -94,41 +95,11 @@ public class Correlator {
      * @param counts array to be sorted.
      */
 
-   /* private static <E extends Comparable<? super E>> void sortByUniqueCount(DataCount<E>[] counts){
-        for (int i = 1; i < counts.length; i++){
-            DataCount<E> x = counts[i];
-            int j;
-            for (j = i - 1; j >= 0; j--){
-                if (counts[j].count <= x.count){
-                    break;
-                }
-                counts[j + 1] = counts[j];
-            }
-            counts[j + 1] = x;
-        }
-    }*/
-
     private static <E extends Comparable<? super E>> void sortByDescendingCount(DataCount<E>[] counts){
     HeapSort sortObject = new HeapSort();
 
         //HeapSort Algorithm brought to you by Sam's Sanity and the letters "ahhhhhhhhhhhhhhh!"
         sortObject.heapSort(counts);
-
-        /**********************************
-        //			Original Code
-        for (int i = 1; i < counts.length; i++){
-                DataCount<E> x = counts[i];
-                int j;
-                for (j = i - 1; j >= 0; j--){
-                    if (counts[j].count >= x.count){
-                        break;
-                    }
-                    counts[j + 1] = counts[j];
-                }
-                counts[j + 1] = x;
-            }
-        //			End Original Code
-        **********************************/
     }
 
     public static void main(String[] args){
