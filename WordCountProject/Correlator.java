@@ -82,7 +82,7 @@ public class Correlator {
             //correlationCount1++;
             freq = c.count/(double)totalNumWords;
             if (freq < 0.01 && freq > 0.0001){
-                wordFreq1.put(c.data, (c.count / (double) totalNumWords));
+                wordFreq1.put(c.data, (c.count/(double)totalNumWords));
                 //System.out.println(c.data + "\t\t\t" + wordFreq1.get(c.data));
             }
 
@@ -92,7 +92,7 @@ public class Correlator {
             //correlationCount2++;
             freq = c.count/(double)totalNumWords;
             if (freq < 0.01 && freq > 0.0001) {
-                wordFreq2.put(c.data, (c.count / (double) totalNumWords));
+                wordFreq2.put(c.data, (c.count/(double)totalNumWords));
                 //System.out.println(c.data + "\t\t\t" + wordFreq2.get(c.data));
             }
         }
@@ -100,6 +100,7 @@ public class Correlator {
         for ( String word : wordFreq1.keySet()){
                 if (wordFreq2.containsKey(word)){
                     correlationSum += pow((wordFreq1.get(word) - wordFreq2.get(word)),2);
+                    System.out.println(word + "\t" + wordFreq1.get(word) + " - " + wordFreq2.get(word) + " = " + pow((wordFreq1.get(word) - wordFreq2.get(word)),2));
                 }
 
         }
