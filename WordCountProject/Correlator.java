@@ -67,8 +67,8 @@ public class Correlator {
          *don't affect correlation.
          */
         double correlationSum = 0;
-        int correlationCount1 = 0;
-        int correlationCount2 = 0;
+        //int correlationCount1 = 0;
+        //int correlationCount2 = 0;
         int totalNumWords = 0;
 
         for (DataCount<String> c: counts1){
