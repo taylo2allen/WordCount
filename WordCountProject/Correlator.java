@@ -108,12 +108,6 @@ public class Correlator {
                            " the topCutOff1 is : " + topCutOff1 + "\tthe topCutOff2 is : " + topCutOff2 + "\n" +
                            " the bottomCutOff1 is : " + bottomCutOff1 + "\tthe bottomCutOff2 is : " + bottomCutOff2);
         */
-        // String[] temp = "";
-        // for (){
-            // temp[topCutOff1] = ;
-        // }
-
-
     }
 
     /**
