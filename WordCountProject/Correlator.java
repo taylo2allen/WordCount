@@ -14,6 +14,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import static java.lang.Math.pow;
+
 /**
  * An executable that counts the words in a files and prints out the counts in
  * descending order. You will need to modify this file.
@@ -81,19 +83,28 @@ public class Correlator {
             freq = c.count/(double)totalNumWords;
             if (freq < 0.01 && freq > 0.0001){
                 wordFreq1.put(c.data, (c.count / (double) totalNumWords));
-                System.out.println(c.data + "\t\t\t" + wordFreq1.get(c.data));
+                //System.out.println(c.data + "\t\t\t" + wordFreq1.get(c.data));
             }
+
         }
-        /* DO NOT DELETE!!!!!
+
         for (DataCount<String> c : counts2){
             //correlationCount2++;
             freq = c.count/(double)totalNumWords;
             if (freq < 0.01 && freq > 0.0001) {
                 wordFreq2.put(c.data, (c.count / (double) totalNumWords));
-                System.out.println(c.data + "\t\t\t" + wordFreq2.get(c.data));
+                //System.out.println(c.data + "\t\t\t" + wordFreq2.get(c.data));
             }
-        }*/
+        }
 
+        for ( String word : wordFreq1.keySet()){
+                if (wordFreq2.containsKey(word)){
+                    correlationSum += pow((wordFreq1.get(word) - wordFreq2.get(word)),2);
+                }
+
+        }
+
+        System.out.println("\nDifference Metric: " + correlationSum);
         //normalize frequencies
         //remove top%1
 
