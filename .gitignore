@@ -1,3 +1,4 @@
 wordcount.out
 *.class
 *.log
+/bin/

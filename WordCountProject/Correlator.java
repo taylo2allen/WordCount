@@ -69,43 +69,83 @@ public class Correlator {
         double correlationSum = 0;
         //int correlationCount1 = 0;
         //int correlationCount2 = 0;
-        int totalNumWords = 0;
-
+        int totalNumWords1 = 0;
+        int totalNumWords2 = 0;
+        double maxOccurrences = 0.0;
+        double minOccurrences = 0.0;
+        double aveUnique1 = 0.0;        
+        double aveUnique2 = 0.0;
+        
         for (DataCount<String> c: counts1){
-            totalNumWords += c.count;
+        	if (maxOccurrences == 0) {
+        		maxOccurrences = c.count;
+        	}
+        	minOccurrences = c.count;
+            totalNumWords1 += c.count;
         }
+        aveUnique1=(maxOccurrences+minOccurrences)/totalNumWords1;
+        
+        for (DataCount<String> c: counts2){
+        	if (maxOccurrences == 0) {
+        		maxOccurrences = c.count;
+        	}
+        	minOccurrences = c.count;
+            totalNumWords2 += c.count;
+        }
+        aveUnique2=(maxOccurrences+minOccurrences)/totalNumWords2;
+
         double freq = 0;
         Map<String, Double> wordFreq1 = new HashMap<>();
         Map<String, Double> wordFreq2 = new HashMap<>();
-
+        
+        
+        
+        
+        
         for (DataCount<String> c : counts1){
             //correlationCount1++;
-            freq = c.count/(double)totalNumWords;
+            freq = c.count/(double)totalNumWords1;
+            
             if (freq < 0.01 && freq > 0.0001){
-                wordFreq1.put(c.data, (c.count/(double)totalNumWords));
+            	
+                wordFreq1.put(c.data, (c.count/(double)aveUnique1));
                 //System.out.println(c.data + "\t\t\t" + wordFreq1.get(c.data));
             }
-
+            /*take max number of occurrences and add the minimum number of occurrences
+            *and divide by the number of unique words
+            *this give the average number of occurrences for a word :: 
+            *double aveUnique = 0;
+            *
+            *
+            *
+            *aveUnique=(max+min) / totUnique;
+            *divide number of occurrences for each by the average uniqueness.
+            *
+            *
+            *
+            */ 
+            
+            
         }
 
         for (DataCount<String> c : counts2){
             //correlationCount2++;
-            freq = c.count/(double)totalNumWords;
+            freq = c.count/(double)totalNumWords2;
             if (freq < 0.01 && freq > 0.0001) {
-                wordFreq2.put(c.data, (c.count/(double)totalNumWords));
+                wordFreq2.put(c.data, (c.count/(double)aveUnique2));
                 //System.out.println(c.data + "\t\t\t" + wordFreq2.get(c.data));
             }
         }
 
         for ( String word : wordFreq1.keySet()){
                 if (wordFreq2.containsKey(word)){
-                    correlationSum += pow((wordFreq1.get(word) - wordFreq2.get(word)),2);
-                    System.out.println(word + "\t" + wordFreq1.get(word) + " - " + wordFreq2.get(word) + " = " + pow((wordFreq1.get(word) - wordFreq2.get(word)),2));
+                    correlationSum += pow((wordFreq1.get(word) - wordFreq2.get(word)),2.0);
+                   // System.out.println(word + "\t" + wordFreq1.get(word) + " - " + wordFreq2.get(word) + " = " + pow((wordFreq1.get(word) - wordFreq2.get(word)),2));
                 }
-
         }
+        System.out.println("\nDifference Metric: " +/* correlationSum/*/((aveUnique1+aveUnique2)/2));
 
-        System.out.println("\nDifference Metric: " + correlationSum);
+       
         //normalize frequencies
         //remove top%1
 
