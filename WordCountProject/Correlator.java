@@ -97,11 +97,7 @@ public class Correlator {
         double freq = 0;
         Map<String, Double> wordFreq1 = new HashMap<>();
         Map<String, Double> wordFreq2 = new HashMap<>();
-        
-        
-        
-        
-        
+                
         for (DataCount<String> c : counts1){
             //correlationCount1++;
             freq = c.count/(double)totalNumWords1;
@@ -113,21 +109,15 @@ public class Correlator {
             }
             /*take max number of occurrences and add the minimum number of occurrences
             *and divide by the number of unique words
-            *this give the average number of occurrences for a word :: 
-            *double aveUnique = 0;
-            *
-            *
+            *this give the average number of occurrences for any word in the document 
+            *for each word divide its number of occurrence by the average number of
+            *occurrences. This gives the uniqueness of that word for the particular
+            *document.         
             *
             *aveUnique=(max+min) / totUnique;
             *divide number of occurrences for each by the average uniqueness.
-            *
-            *
-            *
-            */ 
-            
-            
+            */   
         }
-
         for (DataCount<String> c : counts2){
             //correlationCount2++;
             freq = c.count/(double)totalNumWords2;
@@ -139,12 +129,12 @@ public class Correlator {
 
         for ( String word : wordFreq1.keySet()){
                 if (wordFreq2.containsKey(word)){
-                    correlationSum += pow((wordFreq1.get(word) - wordFreq2.get(word)),2.0);
+                    correlationSum += pow((wordFreq1.get(word) - wordFreq2.get(word)),2);
                    // System.out.println(word + "\t" + wordFreq1.get(word) + " - " + wordFreq2.get(word) + " = " + pow((wordFreq1.get(word) - wordFreq2.get(word)),2));
                 }
         }
-        System.out.println("\nDifference Metric: " +/* correlationSum/*/((aveUnique1+aveUnique2)/2));
-
+        System.out.println("The more similiar the document, the closer the Correlation metric will be to 0.\n"
+        		+ "Correlation Metric: " +/* correlationSum/*/((aveUnique1+aveUnique2)/2));
        
         //normalize frequencies
         //remove top%1
