@@ -1,4 +1,7 @@
 wordcount.out
 *.class
 *.log
-/bin/
+bin/
+out/
+.idea/
+*.xml

@@ -1,59 +1,66 @@
-import BinarySearchTree.AVLNode;
 
-/*// Project:      WordCountProject
-// Module:       AVLTree.java
-// Contributors: Taylor Allen, Sam Hendryx, Andrew Cash
-// Date:         1/2/18
- Purpose:      The commandline form for AVLTree will be as follows:java AVLTree WordCount/Correlator-a <filename1> <filename2>
-                  -a    Use an AVL Tree
-                 Uses a function to correlate two documents
- */
+
 public class AVLTree<E extends Comparable<? super E>> extends BinarySearchTree<E> implements DataCounter<E>{
-	/*protected class AVLNode {
-        *//**
-         * The left child of this node.
-         *//*
-        public AVLNode left;
+	AVLNode overallRoot;
 
-        *//**
-         * The right child of this node.
-         *//*
-        public AVLNode right;
+	public class AVLNode extends BSTNode {
+		public AVLNode left;
+		public AVLNode right;
+		public int height;
 
-        *//**
-         * The data element stored at this node.
-         *//*
-        public E data;
+		public AVLNode(E data) {
+			super(data);
+			height = 0;
+			//System.out.println(this.height);
+		}
+	}
 
-        *//**
-         * The count for this data element.
-         *//*
-        public int count;
-        
-        public int height;
-        
-        *//**
-         * Create a new data node. Also takes care of incrementing the tree
-         * size.
-         *
-         * @param data data element to be stored at this node.
-         *//*
-        
-        public AVLNode(E data) {
-            this.data = data;
-            count = 1;
-            left = right = null;
-            size++;
-        }*/
-	public static BinarySearchTree avlObj = new BinarySearchTree();
-	
-	avlObj.
-	
-	/*public AVLNode() {
-		
-        overallRoot = null;
-        size = 0;
-    }
-	*/
-	//}
+	@Override
+	public void incCount(E data) {
+		//System.out.println("Inserting: " + data);
+		if (overallRoot == null) {
+            overallRoot = new AVLNode(data);
+        } else {
+            // traverse the tree
+			AVLNode currentNode = overallRoot;
+            while (true) {
+
+                // compare the data to be inserted with the data at the current
+                // node
+                int cmp = data.compareTo(currentNode.data);
+
+                if (cmp == 0) {
+                    // current node is a match
+                    currentNode.count++;
+                    return;
+                } else if (cmp < 0) {
+                    // new data goes to the left of the current node
+                    if (currentNode.left == null) {
+                        currentNode.left = new AVLNode(data);
+                        return;
+                    }
+                    currentNode = currentNode.left;
+                } else {
+                    // new data goes to the right of the current node
+                    if (currentNode.right == null) {
+                        currentNode.right = new AVLNode(data);
+                        return;
+                    }
+                    currentNode = currentNode.right;
+                    //System.out.println(currentNode.height);
+                }
+            }
+        }
+	}
+
+	protected int traverse(AVLNode root, DataCount<E>[] counts, int idx) {
+		if(root != null) {
+			System.out.println("Data: " + root.data + "\tCount: " + root.count);
+			idx = traverse(root.left, counts, idx);
+			counts[idx] = new DataCount<E>(root.data, root.count);
+			idx = traverse(root.right, counts, idx + 1);
+		}
+		return idx;
+	}
+
 }
