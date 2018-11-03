@@ -7,7 +7,7 @@
                  Uses a function to correlate two documents
  */
 public class AVLTree<E extends Comparable<? super E>> extends BinarySearchTree<E> implements DataCounter<E>{
-	AVLNode overallRoot;
+	protected AVLNode overallRoot;
 
 	public class AVLNode extends BSTNode {
 		public AVLNode left;
@@ -79,27 +79,13 @@ public class AVLTree<E extends Comparable<? super E>> extends BinarySearchTree<E
 			return -1;
 		}
 		if(root!=null) {
-			int switchNum = 0;
 			int htRight = isBalanced(root.right);
 			int htLeft = isBalanced(root.left);
 
 			if(Math.abs(height(root.left)-height(root.right))>1||
 					height(root.left) != htLeft || height(root.right)
 					!= htRight) {
-
-				switch(switchNum) {
-
-				case 1: rotateLeft(root);
-				break;
-				case 2: doubleLeft(root);
-				break;
-				case 3: doubleRight(root);
-				break;
-				case 4: rotateRight(root);
-				break;
-				default: System.out.println("The switch statement isn't receiving a 1, 2, 3 or 4.");
-				break;
-				}
+				balance(root);
 			}
 		}
 		return height (root);
@@ -140,5 +126,26 @@ public class AVLTree<E extends Comparable<? super E>> extends BinarySearchTree<E
 		k1.height = Math.max( height( k1.left ), height( k1.right ) ) + 1;
 		k2.height = Math.max( height( k2.right ), k1.height ) + 1;
 		return k2;
+	}
+	private AVLNode balance(AVLNode node)
+	{
+		if (height(node.left) - height(node.right)> 1) {
+			if (height(node.left.left)>= height(node.left.right)) {
+				node = rotateRight(node);
+			}
+			else {
+				node = doubleLeft(node);
+			}
+		}
+		else if (height(node.right) - height(node.left)> 1) {
+			if (height(node.right.right)
+					>= height(node.right.left)) {
+				node = rotateLeft(node);
+			}
+			else {
+				node = doubleRight(node);
+			}
+		}
+		return node;
 	}
 }

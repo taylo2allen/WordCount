@@ -18,9 +18,9 @@ import java.io.IOException;
  * descending order. You will need to modify this file.
  */
 public class WordCount {
-	private static void countWords(String file, boolean bUnique){
-		DataCounter<String> counter = new BinarySearchTree<String>();
-
+	private static void countWords(DataCounter<String> counter,String file, boolean bUnique){
+		/*		DataCounter<String> counter = new BinarySearchTree<String>();
+		 */
 		try {
 			FileWordReader reader = new FileWordReader(file);
 			String word = reader.nextWord();
@@ -103,20 +103,22 @@ public class WordCount {
 	private static void WordCountSwitch(String[] args){
 		try {
 			if (args[0].equals("-a")){
+				DataCounter<String> counter = new AVLTree();
 				if (args[1].equals("-frequency")){
-					// countWords(args[2],false);
+					countWords(counter,args[2],false);
 				}
 				else if (args[1].equals("-num_unique")){
-					// countWords(args[2],true);
+					countWords(counter,args[2],true);
 				}
 				else {throw new Exception("Invalid argument in arg1 must be [ -frequency | -num_unique ].");}
 			}
 			else if (args[0].equals("-b")){
+				DataCounter<String> counter = new BinarySearchTree<String>();
 				if (args[1].equals("-frequency")){
-					countWords(args[2],false);
+					countWords(counter,args[2],false);
 				}
 				else if (args[1].equals("-num_unique")){
-					countWords(args[2],true);
+					countWords(counter,args[2],true);
 				}
 				else {throw new Exception("Invalid argument in arg1 must be [ -frequency | -num_unique ].");}
 			}
