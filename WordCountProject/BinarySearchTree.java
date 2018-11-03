@@ -45,6 +45,8 @@ DataCounter<E> {
 		 */
 		public int count;
 
+		public int height;
+
 		/**
 		 * Create a new data node. Also takes care of incrementing the tree
 		 * size.
@@ -56,6 +58,7 @@ DataCounter<E> {
 			count = 1;
 			left = right = null;
 			size++;
+			this.height = 0;
 		}
 	}
 

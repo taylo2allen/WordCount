@@ -12,6 +12,7 @@
 import static java.lang.Math.pow;
 
 import java.io.IOException;
+import java.text.NumberFormat;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -74,6 +75,9 @@ public class Correlator {
 		double minOccurrences = 0.0;
 		double aveUnique1 = 0.0;
 		double aveUnique2 = 0.0;
+		double ourMinVal = 1.0;
+		double outMaxVal = 100.0;
+
 
 		for (DataCount<String> c: counts1){
 			if (maxOccurrences == 0) {
@@ -103,7 +107,8 @@ public class Correlator {
 
 			if (freq < 0.01 && freq > 0.0001){
 
-				wordFreq1.put(c.data, (c.count/aveUnique1));
+				//wordFreq1.put(c.data, (c.count/aveUnique1));
+				wordFreq1.put(c.data, freq);
 				//System.out.println(c.data + "\t\t\t" + wordFreq1.get(c.data));
 			}
 			/*take max number of occurrences and add the minimum number of occurrences
@@ -121,19 +126,23 @@ public class Correlator {
 			//correlationCount2++;
 			freq = c.count/(double)totalNumWords2;
 			if (freq < 0.01 && freq > 0.0001) {
-				wordFreq2.put(c.data, (c.count/aveUnique2));
+				//wordFreq2.put(c.data, (c.count/aveUnique2));
+				wordFreq2.put(c.data, freq);
 				//System.out.println(c.data + "\t\t\t" + wordFreq2.get(c.data));
 			}
 		}
 
 		for ( String word : wordFreq1.keySet()){
 			if (wordFreq2.containsKey(word)){
-				correlationSum += pow((wordFreq1.get(word) - wordFreq2.get(word)));
+				correlationSum += pow((wordFreq1.get(word) - wordFreq2.get(word)),2);
 				// System.out.println(word + "\t" + wordFreq1.get(word) + " - " + wordFreq2.get(word) + " = " + pow((wordFreq1.get(word) - wordFreq2.get(word)),2));
 			}
 		}
+		NumberFormat nf = NumberFormat.getInstance();
+		nf.setMinimumFractionDigits(7);
+
 		System.out.println("The more similiar the document, the closer the Correlation metric will be to 0.\n"
-				+ "Correlation Metric: " +/* correlationSum/*/((aveUnique1+aveUnique2)/2));
+				+ "Correlation Metric: " + nf.format(correlationSum) /*((aveUnique1+aveUnique2)/2))*/);
 
 		//normalize frequencies
 		//remove top%1
