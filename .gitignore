@@ -6,3 +6,5 @@ wordcount.out
 /.idea/
 *.xml
 *.iml
+/.project/
+/.classpath/
