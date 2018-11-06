@@ -1,29 +1,46 @@
-/**
- * TODO Replace this comment with your own.
- *
- * Stub code for an implementation of a DataCounter that uses a hash table as
- * its backing data structure. We included this stub so that it's very clear
- * that HashTable works only with Strings, whereas the DataCounter interface is
- * generic.  You need the String contents to write your hash code code.
- */
+/* Project:      WordCountProject
+// Module:       Correlator.java
+// Contributors: Taylor Allen, Sam Hendryx, Andrew Cash
+// Date:         11/6/18
+// Purpose:      The command line form for Correlator will be as follows:java Correlator -h [-frequency | -unique] <filename2>
+//				*/
 public class HashTable implements DataCounter<String> {
+	protected int size;
+	/** {@inheritDoc} */
+	@Override
+	public DataCount<String>[] getCounts() {
 
-    /** {@inheritDoc} */
-    public DataCount<String>[] getCounts() {
-        // TODO Auto-generated method stub
-        return null;
-    }
+		return null;
+	}
 
-    /** {@inheritDoc} */
-    public int getSize() {
-        // TODO Auto-generated method stub
-        return 0;
-    }
+	/** {@inheritDoc} */
+	@Override
+	public int getSize() {
 
-    /** {@inheritDoc} */
-    public void incCount(String data) {
-        // TODO Auto-generated method stub
+		return size;
+	}
 
-    }
+	/** {@inheritDoc} */
+	@Override
+	public void incCount(String data) {
+
+	}
+	public void getArray() {
+
+	}
+	private static boolean isPrime(int n)
+	{
+		if( n == 2 || n == 3 )
+			return true;
+
+		if( n == 1 || n % 2 == 0 )
+			return false;
+
+		for( int i = 3; i * i <= n; i += 2 )
+			if( n % i == 0 )
+				return false;
+
+		return true;
+	}
 
 }
