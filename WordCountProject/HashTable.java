@@ -1,9 +1,10 @@
-/* Project:      WordCountProject
+// Project:      WordCountProject
 // Module:       Correlator.java
 // Contributors: Taylor Allen, Sam Hendryx, Andrew Cash
 // Date:         11/6/18
-// Purpose:      The command line form for Correlator will be as follows:java Correlator -h [-frequency | -unique] <filename2>
-//				*/
+/* Purpose:      The command line form for Correlator will be as follows:java Correlator -h [-frequency | -unique] <filename2>
+*/
+
 public class HashTable implements DataCounter<String> {
 	protected int size;
 	/** {@inheritDoc} */
@@ -25,9 +26,11 @@ public class HashTable implements DataCounter<String> {
 	public void incCount(String data) {
 
 	}
+
 	public void getArray() {
 
 	}
+
 	private static boolean isPrime(int n)
 	{
 		if( n == 2 || n == 3 )
@@ -42,5 +45,4 @@ public class HashTable implements DataCounter<String> {
 
 		return true;
 	}
-
 }
