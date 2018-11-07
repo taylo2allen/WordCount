@@ -5,44 +5,57 @@
 /* Purpose:      The command line form for Correlator will be as follows:java Correlator -h [-frequency | -unique] <filename2>
 */
 
-public class HashTable implements DataCounter<String> {
-	protected int size;
-	/** {@inheritDoc} */
-	@Override
-	public DataCount<String>[] getCounts() {
+public class HashTable implements DataCounter<String>{
+    protected int size;
+    private int key;
+    private int value;
 
-		return null;
-	}
+    HashTable(int key, int value){
+        this.key = key;
+        this.value = key;
+    }
 
-	/** {@inheritDoc} */
-	@Override
-	public int getSize() {
+    /** {@inheritDoc} */
+    @Override
+    public DataCount<String>[] getCounts(){
+        return null;
+    }
 
-		return size;
-	}
+    public int getKey(){
+        return key;
+    }
 
-	/** {@inheritDoc} */
-	@Override
-	public void incCount(String data) {
+    public int getValue(){
+        return value;
+    }
 
-	}
+    /** {@inheritDoc} */
+    @Override
+    public int getSize(){
+        return size;
+    }
 
-	public void getArray() {
+    /** {@inheritDoc} */
+    @Override
+    public void incCount(String data){
 
-	}
+    }
 
-	private static boolean isPrime(int n)
-	{
-		if( n == 2 || n == 3 )
-			return true;
+    public void getArray(){
 
-		if( n == 1 || n % 2 == 0 )
-			return false;
+    }
 
-		for( int i = 3; i * i <= n; i += 2 )
-			if( n % i == 0 )
-				return false;
+    private static boolean isPrime(int n){
+        if( n == 2 || n == 3 )
+        return true;
 
-		return true;
-	}
+        if( n == 1 || n % 2 == 0 )
+        return false;
+
+        for( int i = 3; i * i <= n; i += 2 )
+        if( n % i == 0 )
+            return false;
+
+        return true;
+    }
 }
