@@ -5,10 +5,12 @@
 /* Purpose:      The command line form for Correlator will be as follows:java Correlator -h [-frequency | -unique] <filename2>
 */
 
+import static java.lang.Math.pow;
+
 public class HashTable implements DataCounter<String>{
     protected int size;							//Size of data elements NOT the size of the array
-    public int key;								//Ket for hashtable (created by hashcode)
-    public DataCount<String> table[];			//Array of DataCount<String>. Should hold our Word/Count pairs
+    //public int key;								//Ket for hashtable (created by hashcode)
+    public DataCount<String>[] table;			//Array of DataCount<String>. Should hold our Word/Count pairs
 
 //    public String data;
 //    public int count;
@@ -32,7 +34,19 @@ public class HashTable implements DataCounter<String>{
     /** {@inheritDoc} */
     @Override
     public void incCount(String data){
-		//Get HashCode of String "data". HashCode(data) -> key
+		int key = 0;
+        //Get HashCode of String "data". HashCode(data) -> key
+        key = myHash(data, getSize());
+        //Check if table[key] == null
+        if (table[key] == null){
+            //Prepare insert
+            //Is the load factor > 1/2
+            if ((double)(getSize()/table.length) >= .5){
+                //YES - double the size of the array to the next prime number
+
+            }
+
+        }
 		//Check to see if "key" is empty.
 			//If Key is empty, then the word isn't in the table.
 			//Is load factor > 1/2?
@@ -61,5 +75,19 @@ public class HashTable implements DataCounter<String>{
             return false;
 
         return true;
+    }
+
+    private int myHash(String word, int hashSize){
+        /* word is the word we are hashing */
+        /* hashSize is the current size of the array */
+        int result = 0;
+        int count = 0;
+        for (char c : word.toCharArray()) {
+            result += c * pow(256,count);
+            count++;
+            count = count % 5;
+        }
+
+        return (result % hashSize);
     }
 }
