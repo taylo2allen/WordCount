@@ -8,13 +8,12 @@
 import static java.lang.Math.pow;
 
 public class HashTable implements DataCounter<String>{
-    protected int size;							//Size of data elements NOT the size of the array
-    //public int key;								//Ket for hashtable (created by hashcode)
+    protected int size;							      //Size of data elements NOT the size of the array
+    //public int key;				      				//Ket for hashtable (created by hashcode)
     public DataCount<String>[] table;			//Array of DataCount<String>. Should hold our Word/Count pairs
 
 //    public String data;
 //    public int count;
-
 
     /** {@inheritDoc} */
     @Override
@@ -39,14 +38,69 @@ public class HashTable implements DataCounter<String>{
         key = myHash(data, getSize());
         //Check if table[key] == null
         if (table[key] == null){
+            DataCount<String>[] temp = new DataCount[size.length * 2];
+            for(DataCount c : counts){
+                if(c != null){
+                    key = c.myHash(c.word, temp.lenght);
+                    temp[myHash] = c;
+                }
+            }
             //Prepare insert
             //Is the load factor > 1/2
             if ((double)(getSize()/table.length) >= .5){
                 //YES - double the size of the array to the next prime number
 
             }
-
         }
+
+        /*
+        class WordCounterMap
+            Entry[] entrys = new Entry[1]
+
+            void add(String s)
+                int hash = hash(s, entrys.length)
+                if(entrys[hash] == null{
+                    Entry[] temp = new Entry[entry.length * 2]
+                    for(Entry e : entrys){
+                        if(e != null)
+                            int hash = hash(e.word, temp.length)
+                            temp[hash] = e;
+                    entrys = temp;
+                    hash = hash(s, entrys.length)
+                while(true)
+                    if(entrys[hash] != null)
+                        if(entrys[hash].word.equals(s))
+                            entrys[hash].count++
+                            break
+                    else
+                        entrys[hash] = new Entry(s)
+                    hash++
+                    hash = hash mod entrys.length
+
+            int getCount(String s)
+                int hash = hash(s, length)
+                if(entrys[hash] == null)
+                    return 0
+                while(true)
+                    if(entrys[hash].word.equals(s))
+                        entrys[hash].count++
+                        break
+                    hash++
+                    hash = hash mod entrys.length
+
+
+        class Entry
+            int count
+            String word
+
+            Entry(String s)
+                this.word = s
+                count = 1
+
+         */
+
+
+
 		//Check to see if "key" is empty.
 			//If Key is empty, then the word isn't in the table.
 			//Is load factor > 1/2?
