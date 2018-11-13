@@ -62,6 +62,21 @@ public class HashTable implements DataCounter<String>{
         return true;
     }
 
+    private boolean insert(String x, int count){
+        // Insert x into array with it's current count
+        int currentPos = findPos( x );
+        if( isActive( currentPos ) ){
+            System.out.println("Oops! A collision we were NOT expecting!");
+            return false;
+        }
+        if( array[ currentPos ] == null )
+            ++occupied;
+        array[ currentPos ] = new HashEntry<>(x, count, true);
+        size++;
+
+        return true;
+    }
+
     /**
      * Expand the hash table.
      */
@@ -77,7 +92,7 @@ public class HashTable implements DataCounter<String>{
         // Copy table over
         for( HashEntry<String> entry : oldArray )
             if( entry != null && entry.isActive )
-                insert( entry.element );
+                insert( entry.element, entry.count );
     }
 
     /**
@@ -163,6 +178,12 @@ public class HashTable implements DataCounter<String>{
         {
             element  = e;
             count = 1;
+            isActive = i;
+        }
+
+        public HashEntry(String e, int c, boolean i){
+            element = e;
+            count = c;
             isActive = i;
         }
     }
