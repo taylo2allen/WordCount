@@ -19,8 +19,6 @@ import java.io.IOException;
  */
 public class WordCount {
 	private static void countWords(DataCounter<String> counter,String file, boolean bUnique){
-		/*		DataCounter<String> counter = new BinarySearchTree<String>();
-		 */
 		try {
 			FileWordReader reader = new FileWordReader(file);
 			String word = reader.nextWord();
@@ -29,7 +27,7 @@ public class WordCount {
 				word = reader.nextWord();
 			}
 		} catch (IOException e){
-			System.err.println("\nError processing the file \"" + file + "\" Exception: " + e + "\n");
+			System.err.println("\nError processing the file \"" + file + "\"\nException: " + e + "\n");
 			System.exit(1);
 		}
 
@@ -123,11 +121,12 @@ public class WordCount {
 				else {throw new Exception("Invalid argument in arg1 must be [ -frequency | -num_unique ].");}
 			}
 			else if (args[0].equals("-h")){
+				DataCounter<String> counter = new HashTable();
 				if (args[1].equals("-frequency")){
-					// countWords(args[2],false);
+					countWords(counter,args[2],false);
 				}
 				else if (args[1].equals("-num_unique")){
-					// countWords(args[2],true);
+					countWords(counter,args[2],true);
 				}
 				else {throw new Exception("Invalid argument in arg1 must be [ -frequency | -num_unique ].");}
 			}
