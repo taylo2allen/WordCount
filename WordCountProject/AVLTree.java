@@ -7,26 +7,32 @@
                  Uses a function to correlate two documents
  */
 public class AVLTree<E extends Comparable<? super E>> extends BinarySearchTree<E> implements DataCounter<E>{
-	protected BSTNode overallRoot;
-/*
-	public class AVLNode extends BSTNode {
-		public AVLNode left;
-		public AVLNode right;
-		public int height;
-		//private boolean balanced = true;
-		public AVLNode(E data) {
-			super(data);
-			height = 0;
-			//System.out.println(this.height);
-		}
-	}
-*/
+	//protected BSTNode overallRoot;
+
 	@Override
 	public void incCount(E data) {
-		super.incCount(data);
-		isBalanced();
+		insert(data);
 	}
-	
+
+	private void insert(E data){
+
+		overallRoot = insert(data, overallRoot);
+	}
+
+	private BSTNode insert(E data, BSTNode node){
+		if (node == null){ return new BSTNode(data); }
+
+		int compareResult = data.compareTo(node.data);
+		// data goes on left side of the current node
+		if (compareResult < 0){ node.left = insert(data, node.left); }
+		// data goes on right side of the current node
+		else if (compareResult > 0){ node.right = insert(data, node.right); }
+		// data is equal, so we increment count
+		else { node.count++; }
+
+		return balance(node);
+	}
+
 	public void isBalanced() {
 		isBalanced(overallRoot);
 		//if it isn't balanced, fix
@@ -45,10 +51,10 @@ public class AVLTree<E extends Comparable<? super E>> extends BinarySearchTree<E
 			if(Math.abs(height(root.left)-height(root.right))>1||
 					height(root.left) != htLeft || height(root.right)
 					!= htRight) {
-				balance(root);
+				root = balance(root);
 			}
 		}
-		return height (root);
+		return height(root);
 	}
 	private int height(BSTNode currentNode )
 	{
@@ -89,9 +95,11 @@ public class AVLTree<E extends Comparable<? super E>> extends BinarySearchTree<E
 	}
 	private BSTNode balance(BSTNode node)
 	{
+		if (node == null){ return node; }
+
 		if (height(node.left) - height(node.right)> 1) {
 			if (height(node.left.left)>= height(node.left.right)) {
-				node = rotateRight(node);
+				node = rotateLeft(node);
 			}
 			else {
 				node = doubleLeft(node);
@@ -100,12 +108,13 @@ public class AVLTree<E extends Comparable<? super E>> extends BinarySearchTree<E
 		else if (height(node.right) - height(node.left)> 1) {
 			if (height(node.right.right)
 					>= height(node.right.left)) {
-				node = rotateLeft(node);
+				node = rotateRight(node);
 			}
 			else {
 				node = doubleRight(node);
 			}
 		}
+		node.height = Math.max(height(node.left), height(node.right)) + 1;
 		return node;
 	}
 }
