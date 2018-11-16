@@ -69,8 +69,8 @@ public class Correlator {
 		 *don't affect correlation.
 		 */
 		double correlationSum = 0;				//Final output. Running total.
-		HashMap<String, Double> wordFreq1 = normalize(counts1);
-		HashMap<String, Double> wordFreq2 = normalize(counts2);
+		HashMap<String, Double> wordFreq1 = normalize(counts1, file1);
+		HashMap<String, Double> wordFreq2 = normalize(counts2, file2);
 
 		// Compare the frequencies of words found in both documents and add them to the correlationSum
 		for ( String word : wordFreq1.keySet()){
@@ -81,20 +81,21 @@ public class Correlator {
 		}
 		NumberFormat nf = NumberFormat.getInstance();
 		nf.setMinimumFractionDigits(4);
+		double out = 100 - (correlationSum*100);
 
 		System.out.println("The more similiar the document, the closer the Correlation metric will be to 0.\n"
-				+ "Correlation Metric: " + nf.format(correlationSum) /*((aveUnique1+aveUnique2)/2))*/);
+				+ "Correlation Metric: " + nf.format(out) + "%" /*nf.format(correlationSum) ((aveUnique1+aveUnique2)/2))*/);
 
 	}
 
-	private static HashMap<String, Double> normalize(DataCount<String>[] counts){
+	private static HashMap<String, Double> normalize(DataCount<String>[] counts, String file){
 		// We need the total number of words
 		// Total number of words will be the sum of all counts of every word in the document
 		int totalNumWords = 0;		//Total num of words for doc
 		for (DataCount<String> c: counts){
 			totalNumWords+=c.count;
 		}
-		System.out.println("Total number of words: " + totalNumWords);
+		System.out.println("Total number of words in " + file + ": " + totalNumWords);
 
 		// We need to find the max and min number of occurrences for normalization
 		// Because the data is sorted, the first number is the max, the last is the min
