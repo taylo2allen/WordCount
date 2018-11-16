@@ -1,3 +1,10 @@
 wordcount.out
 *.class
 *.log
+/bin/
+/out/
+/.idea/
+*.xml
+*.iml
+/.project/
+/.classpath/

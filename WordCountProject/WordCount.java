@@ -3,12 +3,12 @@
 // Contributors: Taylor Allen, Sam Hendryx, Andrew Cash
 // Date:         10/19/18
 /* Purpose:      The commandline form for WordCount will be as follows:java WordCount [ -b | -a | -h ] [ -frequency | -num_unique ] <filename>
-                  • -b    Use an Unbalanced BST to implement the DataCounter
-                  • -a    Use an AVL Tree
-                  • -h    Use a Hashtable
-                  • -frequency     Print all the word/frequency pairs, ordered by frequency, and then by thewords in lexicographic order
-                  • -num_unique     Print the number of unique words in the document. This is the totalnumber of distinct (different)
-                  words in the document. Words that appear more than onceare only counted as a single word for this statistic.
+                  -b    Use an Unbalanced BST to implement the DataCounter
+                  -a    Use an AVL Tree
+                    -h    Use a Hashtable
+                    -frequency     Print all the word/frequency pairs, ordered by frequency, and then by the words in lexicographic order
+                    -num_unique     Print the number of unique words in the document. This is the total number of distinct (different)
+                  words in the document. Words that appear more than once are only counted as a single word for this statistic.
  */
 
 import java.io.IOException;
@@ -18,135 +18,123 @@ import java.io.IOException;
  * descending order. You will need to modify this file.
  */
 public class WordCount {
-    private static void countWords(String file1, String file2, boolean bUnique){
-        DataCounter<String> counter = new BinarySearchTree<String>();
+	private static void countWords(DataCounter<String> counter,String file, boolean bUnique){
+		try {
+			FileWordReader reader = new FileWordReader(file);
+			String word = reader.nextWord();
+			while (word != null){
+				counter.incCount(word);
+				word = reader.nextWord();
+			}
+		} catch (IOException e){
+			System.err.println("\nError processing the file \"" + file + "\"\nException: " + e + "\n");
+			System.exit(1);
+		}
 
-        try {
-            FileWordReader reader = new FileWordReader(file1);
-            String word = reader.nextWord();
-            while (word != null){
-                counter.incCount(word);
-                word = reader.nextWord();
-            }
-        } catch (IOException e){
-            System.err.println("\nError processing the file \"" + file1 + "\" Exception: " + e + "\n");
-            System.exit(1);
-        }
+		DataCount<String>[] counts = counter.getCounts();
+		sortByDescendingCount(counts);
+		// sortByUniqueCount(counts);
 
-        DataCount<String>[] counts = counter.getCounts();
-        sortByDescendingCount(counts);
-        // sortByUniqueCount(counts);
+		// bUnique = False = run the -frequency flag
+		// bUnique = True = run the -num_unique flag
 
-        // bUnique = False = run the -frequency flag
-        // bUnique = True = run the -num_unique flag
+		// bCorrelate = True = doc correlator
 
-        int uniqueCount = 0;
+		int uniqueCount = 0;
 
-        if (bUnique){
-            for (DataCount<String> c : counts)
-                uniqueCount++;
+		if (bUnique){
+			for (DataCount<String> c : counts)
+				uniqueCount++;
 
-            System.out.println("\n\n" + uniqueCount + " Unique Words Found in \'" + file1 + "'.\n\n");
-        }
-        else{
-            for (DataCount<String> c : counts)
-                System.out.println(c.count + " \t" + c.data);
-        }
-    }
+			System.out.println("\n\n" + uniqueCount + " Unique Words Found in \'" + file + "'.\n\n");
+		}
+		else{
+			for (DataCount<String> c : counts)
+				System.out.println(c.count + " \t" + c.data);
+		}
+	}
 
-    /**
-     * TODO Replace this comment with your own.
-     *
-     * Sort the count array in descending order of count. If two elements have
-     * the same count, they should be in alphabetical order (for Strings, that
-     * is. In general, use the compareTo method for the DataCount.data field).
-     *
-     * This code uses insertion sort. You should modify it to use a heap sort
-     * sorting algorithm. NOTE: the current code assumes the array starts in
-     * alphabetical order! You'll need to make your code deal with unsorted
-     * arrays.
-     *
-     * The generic parameter syntax here is new, but it just defines E as a
-     * generic parameter for this method, and constrains E to be Comparable. You
-     * shouldn't have to change it.
-     *
-     * @param counts array to be sorted.
-     */
+	/**
+	 * TODO Replace this comment with your own.
+	 *
+	 * Sort the count array in descending order of count. If two elements have
+	 * the same count, they should be in alphabetical order (for Strings, that
+	 * is. In general, use the compareTo method for the DataCount.data field).
+	 *
+	 * This code uses insertion sort. You should modify it to use a heap sort
+	 * sorting algorithm. NOTE: the current code assumes the array starts in
+	 * alphabetical order! You'll need to make your code deal with unsorted
+	 * arrays.
+	 *
+	 * The generic parameter syntax here is new, but it just defines E as a
+	 * generic parameter for this method, and constrains E to be Comparable. You
+	 * shouldn't have to change it.
+	 *
+	 * @param counts array to be sorted.
+	 */
 
-    private static <E extends Comparable<? super E>> void sortByUniqueCount(DataCount<E>[] counts){
-        for (int i = 1; i < counts.length; i++){
-            DataCount<E> x = counts[i];
-            int j;
-            for (j = i - 1; j >= 0; j--){
-                if (counts[j].count <= x.count){
-                    break;
-                }
-                counts[j + 1] = counts[j];
-            }
-            counts[j + 1] = x;
-        }
-    }
+	private static <E extends Comparable<? super E>> void sortByUniqueCount(DataCount<E>[] counts){
+		for (int i = 1; i < counts.length; i++){
+			DataCount<E> x = counts[i];
+			int j;
+			for (j = i - 1; j >= 0; j--){
+				if (counts[j].count <= x.count){
+					break;
+				}
+				counts[j + 1] = counts[j];
+			}
+			counts[j + 1] = x;
+		}
+	}
 
-    private static <E extends Comparable<? super E>> void sortByDescendingCount(DataCount<E>[] counts){
-    HeapSort sortObject = new HeapSort();
+	private static <E extends Comparable<? super E>> void sortByDescendingCount(DataCount<E>[] counts){
+		HeapSort sortObject = new HeapSort();
 
-        //HeapSort Algorithm brought to you by Sam's Sanity and the letters "ahhhhhhhhhhhhhhh!"
-        sortObject.heapSort(counts);
+		//HeapSort Algorithm brought to you by Sam's Sanity and the letters "ahhhhhhhhhhhhhhh!"
+		sortObject.heapSort(counts);
+	}
 
-        /**********************************
-        //			Original Code
-        for (int i = 1; i < counts.length; i++){
-                DataCount<E> x = counts[i];
-                int j;
-                for (j = i - 1; j >= 0; j--){
-                    if (counts[j].count >= x.count){
-                        break;
-                    }
-                    counts[j + 1] = counts[j];
-                }
-                counts[j + 1] = x;
-            }
-        //			End Original Code
-        **********************************/
-    }
+	public static void main(String[] args){
+		WordCountSwitch(args);
+	}
 
-    public static void main(String[] args){
-        Switch(args);
-    }
-    private static void Switch(String[] args){
-        try {
-            if (args[0].equals("-a")){
-                if (args[1].equals("-frequency")){
-                    // countWords(args[2],null,false);
-                }
-                else if (args[1].equals("-num_unique")){
-                    // countWords(args[2],null,true);
-                }
-                else {throw new Exception("Invalid argument in arg1 must be [ -frequency | -num_unique ].");}
-            }
-            else if (args[0].equals("-b")){
-                if (args[1].equals("-frequency")){
-                    countWords(args[2],null,false);
-                }
-                else if (args[1].equals("-num_unique")){
-                    countWords(args[2],null,true);
-                }
-                else {throw new Exception("Invalid argument in arg1 must be [ -frequency | -num_unique ].");}
-            }
-            else if (args[0].equals("-h")){
-                if (args[1].equals("-frequency")){
-                    // countWords(args[2],null,false);
-                }
-                else if (args[1].equals("-num_unique")){
-                    // countWords(args[2],null,true);
-                }
-                else {throw new Exception("Invalid argument in arg1 must be [ -frequency | -num_unique ].");}
-            }
-            else if (args[2].equals(null)){throw new Exception("Invalid argument in arg2 must enter a filename.");}
-            else {throw new Exception("Invalid argument in arg0 must be [ -b | -a | -h ].");}
-        }
-        catch(Exception e){
-            System.out.println("\nArgument Error : " + e.getMessage() + "\n");
-        }
-    }
+	private static void WordCountSwitch(String[] args){
+		try {
+			if (args[0].equals("-a")){
+				DataCounter<String> counter = new AVLTree();
+				if (args[1].equals("-frequency")){
+					countWords(counter,args[2],false);
+				}
+				else if (args[1].equals("-num_unique")){
+					countWords(counter,args[2],true);
+				}
+				else {throw new Exception("Invalid argument in arg1 must be [ -frequency | -num_unique ].");}
+			}
+			else if (args[0].equals("-b")){
+				DataCounter<String> counter = new BinarySearchTree<String>();
+				if (args[1].equals("-frequency")){
+					countWords(counter,args[2],false);
+				}
+				else if (args[1].equals("-num_unique")){
+					countWords(counter,args[2],true);
+				}
+				else {throw new Exception("Invalid argument in arg1 must be [ -frequency | -num_unique ].");}
+			}
+			else if (args[0].equals("-h")){
+				DataCounter<String> counter = new HashTable();
+				if (args[1].equals("-frequency")){
+					countWords(counter,args[2],false);
+				}
+				else if (args[1].equals("-num_unique")){
+					countWords(counter,args[2],true);
+				}
+				else {throw new Exception("Invalid argument in arg1 must be [ -frequency | -num_unique ].");}
+			}
+			else if (args[2].equals(null)){throw new Exception("Invalid argument in arg2 must enter a filename.");}
+			else {throw new Exception("Invalid argument in arg0 must be [ -b | -a | -h ].");}
+		}
+		catch(Exception e){
+			System.out.println("\nArgument Error : " + e.getMessage() + "\n");
+		}
+	}
 }
