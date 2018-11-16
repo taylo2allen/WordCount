@@ -1,0 +1,78 @@
+
+javac *.java;time java WordCount -b -frequency texts/hamlet.txt 
+
+real    0m 0.795s
+user    0m 1.305s
+sys     0m 0.136s
+
+javac *.java;time java WordCount -a -frequency texts/hamlet.txt
+
+real    0m 0.882s
+user    0m 1.526s
+sys     0m 0.138s
+
+javac *.java;time java WordCount -h -frequency texts/hamlet.txt
+
+real    0m 1.187s
+user    0m 2.097s
+sys     0m 0.124s
+
+javac *.java;time java WordCount -b -num_unique texts/hamlet.txt
+
+real    0m 0.694s
+user    0m 1.237s
+sys     0m 0.057s
+
+javac *.java;time java WordCount -a -num_unique texts/hamlet.txt
+
+real    0m 0.681s
+user    0m 1.220s
+sys     0m 0.101s
+
+javac *.java;time java WordCount -h -num_unique texts/hamlet.txt
+
+real    0m 0.994s
+user    0m 1.763s
+sys     0m 0.069s
+
+javac *.java;time java Correlator -b texts/hamlet.txt texts/othello.txt
+
+real    0m 0.792s
+user    0m 1.350s
+sys     0m 0.064s
+
+javac *.java;time java Correlator -b texts/hamlet.txt texts/hamlet.txt
+
+real    0m 0.772s
+user    0m 1.393s
+sys     0m 0.083s
+
+javac *.java;time java Correlator -b texts/hamlet.txt texts/nkjbible.txt
+
+real    0m 1.413s
+user    0m 2.480s
+sys     0m 0.121s
+
+javac *.java;time java Correlator -b texts/hamlet.txt texts/the-new-atlantis.txt 
+
+real    0m 0.739s
+user    0m 1.297s
+sys     0m 0.040s
+
+javac *.java;time java Correlator -a texts/hamlet.txt texts/the-new-atlantis.txt
+
+real    0m 0.775s
+user    0m 1.245s
+sys     0m 0.100s
+
+javac *.java;time java Correlator -a texts/hamlet.txt texts/the-new-atlantis.txt 
+
+real    0m 0.718s
+user    0m 1.249s
+sys     0m 0.068s
+
+javac *.java;time java Correlator -h texts/hamlet.txt texts/the-new-atlantis.txt 
+
+real    0m 0.720s
+user    0m 1.191s
+sys     0m 0.073s

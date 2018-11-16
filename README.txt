@@ -34,4 +34,8 @@ Andrew: I liked pair programming and in particular, the ablilty to bounce ideas 
 of the others. I thought that it was a bit too much at once. If it had been parsed into
 separate projects it would have been more easily managable.
 
-Taylor: TBD
+Taylor: I enjoyed working with a productive team and learned the benefits of pair programming
+along with working with git version control.The most difficult part of the project for me was
+the HashTable implementation which used alot of thinking. Something we could have done better
+is writing the documentation first rather than after the code is written, documentation would
+have gone alot better.
