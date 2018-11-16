@@ -9,6 +9,8 @@
                  Uses a function to correlate two documents
  */
 
+import javax.xml.crypto.Data;
+
 import static java.lang.Math.pow;
 
 import java.io.IOException;
@@ -66,72 +68,11 @@ public class Correlator {
 		 *words in the doc. this assumes words not appearing in both
 		 *don't affect correlation.
 		 */
-		double correlationSum = 0;
-		//int correlationCount1 = 0;
-		//int correlationCount2 = 0;
-		int totalNumWords1 = 0;
-		int totalNumWords2 = 0;
-		double maxOccurrences = 0.0;
-		double minOccurrences = 0.0;
-		double aveUnique1 = 0.0;
-		double aveUnique2 = 0.0;
-		double ourMinVal = 1.0;
-		double outMaxVal = 100.0;
+		double correlationSum = 0;				//Final output. Running total.
+		HashMap<String, Double> wordFreq1 = normalize(counts1);
+		HashMap<String, Double> wordFreq2 = normalize(counts2);
 
-
-		for (DataCount<String> c: counts1){
-			if (maxOccurrences == 0) {
-				maxOccurrences = c.count;
-			}
-			minOccurrences = c.count;
-			totalNumWords1 += c.count;
-		}
-		aveUnique1=(maxOccurrences+minOccurrences)/totalNumWords1;
-
-		for (DataCount<String> c: counts2){
-			if (maxOccurrences == 0) {
-				maxOccurrences = c.count;
-			}
-			minOccurrences = c.count;
-			totalNumWords2 += c.count;
-		}
-		aveUnique2=(maxOccurrences+minOccurrences)/totalNumWords2;
-
-		double freq = 0;
-		Map<String, Double> wordFreq1 = new HashMap<>();
-		Map<String, Double> wordFreq2 = new HashMap<>();
-
-		for (DataCount<String> c : counts1){
-			//correlationCount1++;
-			freq = c.count/(double)totalNumWords1;
-
-			if (freq < 0.01 && freq > 0.0001){
-
-				//wordFreq1.put(c.data, (c.count/aveUnique1));
-				wordFreq1.put(c.data, freq);
-				//System.out.println(c.data + "\t\t\t" + wordFreq1.get(c.data));
-			}
-			/*take max number of occurrences and add the minimum number of occurrences
-			 *and divide by the number of unique words
-			 *this give the average number of occurrences for any word in the document
-			 *for each word divide its number of occurrence by the average number of
-			 *occurrences. This gives the uniqueness of that word for the particular
-			 *document.
-			 *
-			 *aveUnique=(max+min) / totUnique;
-			 *divide number of occurrences for each by the average uniqueness.
-			 */
-		}
-		for (DataCount<String> c : counts2){
-			//correlationCount2++;
-			freq = c.count/(double)totalNumWords2;
-			if (freq < 0.01 && freq > 0.0001) {
-				//wordFreq2.put(c.data, (c.count/aveUnique2));
-				wordFreq2.put(c.data, freq);
-				//System.out.println(c.data + "\t\t\t" + wordFreq2.get(c.data));
-			}
-		}
-
+		// Compare the frequencies of words found in both documents and add them to the correlationSum
 		for ( String word : wordFreq1.keySet()){
 			if (wordFreq2.containsKey(word)){
 				correlationSum += pow((wordFreq1.get(word) - wordFreq2.get(word)),2);
@@ -139,25 +80,69 @@ public class Correlator {
 			}
 		}
 		NumberFormat nf = NumberFormat.getInstance();
-		nf.setMinimumFractionDigits(7);
+		nf.setMinimumFractionDigits(4);
 
 		System.out.println("The more similiar the document, the closer the Correlation metric will be to 0.\n"
 				+ "Correlation Metric: " + nf.format(correlationSum) /*((aveUnique1+aveUnique2)/2))*/);
 
-		//normalize frequencies
-		//remove top%1
+	}
+
+	private static HashMap<String, Double> normalize(DataCount<String>[] counts){
+		// We need the total number of words
+		// Total number of words will be the sum of all counts of every word in the document
+		int totalNumWords = 0;		//Total num of words for doc
+		for (DataCount<String> c: counts){
+			totalNumWords+=c.count;
+		}
+		System.out.println("Total number of words: " + totalNumWords);
+
+		// We need to find the max and min number of occurrences for normalization
+		// Because the data is sorted, the first number is the max, the last is the min
+		double maxRatio = (double)counts[0].count/totalNumWords;
+		double minRatio = (double)counts[counts.length - 1].count/totalNumWords;
+
+		// A frequency variable we'll need for Normalizing
+		double freq = 0;
+		// A HashMap to store the frequencies in
+		HashMap<String, Double> myMap = new HashMap<>();
+
+		// Normalizing the data:
+		// X(new) = [X - X(min)]/[X(max)-X(min)]
+		for (DataCount<String> c: counts){
+			freq = (double)c.count/totalNumWords;
+			if (freq < 0.01 && freq > 0.0001){
+				freq = ((freq - minRatio)/(maxRatio - minRatio));
+				//System.out.println(c.data + ": " + freq);
+				myMap.put(c.data, freq);
+			}
+		}
+		return myMap;
+	}
+
+	private DataCount<String>[] trim(DataCount<String>[] counts){
+		Map<String, Double> wordFreq = new HashMap<>();
+		int maxOccurrences = 0;
+		int minOccurrences = 0;
+		int totalNumWords = 0;
+		double freq = 0;
+
+		for (DataCount<String> c: counts){
+			if (maxOccurrences == 0) {
+				maxOccurrences = c.count;
+			}
+			minOccurrences = c.count;
+			totalNumWords += c.count;
+		}
 
 
-		/*double topCutOff1 = Math.ceil((correlationCount1 * 0.01));
-        double bottomCutOff1 = Math.ceil((correlationCount1 * 0.0001));
+		for (DataCount<String> c : counts){
+			freq = c.count/(double)totalNumWords;
+			if (freq < 0.01 && freq > 0.0001) {
+				wordFreq.put(c.data, freq);
+			}
+		}
 
-        double topCutOff2 = Math.ceil((correlationCount2 * 0.01));
-        double bottomCutOff2 = Math.ceil((correlationCount2 * 0.0001));*/
-
-		/*System.out.println(" the count1 is: " + correlationCount1 + "\t\tthe count2 is: " + correlationCount2 + "\n" +
-                           " the topCutOff1 is : " + topCutOff1 + "\tthe topCutOff2 is : " + topCutOff2 + "\n" +
-                           " the bottomCutOff1 is : " + bottomCutOff1 + "\tthe bottomCutOff2 is : " + bottomCutOff2);
-		 */
+		return counts;
 	}
 
 	/**

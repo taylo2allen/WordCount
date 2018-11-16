@@ -10,7 +10,7 @@ import java.util.Arrays;
 import static java.lang.Math.pow;
 
 public class HashTable implements DataCounter<String>{
-    private static final int DEFAULT_TABLE_SIZE = 101;
+    private static final int DEFAULT_TABLE_SIZE = 10;
     private HashEntry<String> [ ] array; // The array of elements
     private int occupied;                 // The number of occupied cells
     protected int size;                   //Size of data elements NOT the size of the array
@@ -276,5 +276,26 @@ public class HashTable implements DataCounter<String>{
         }
 
         return (result % hashSize);
+    }
+
+    /**
+     * Dump the contents of the tree to a String (provided for debugging and
+     * unit testing purposes).
+     *
+     * @return a textual representation of the tree.
+     */
+    protected String dump() {
+        String out = "";
+        if (array != null){
+            for (int i = 0; i < array.length; i++){
+                if (array[i] == null){
+                    out += "[.,.] ";
+                }else {
+                    out += "[" + array[i].element + "," + array[i].count + "] ";
+                }
+            }
+            return out;
+        }
+        return "<empty tree>";
     }
 }

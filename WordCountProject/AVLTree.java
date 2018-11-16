@@ -12,6 +12,8 @@ public class AVLTree<E extends Comparable<? super E>> extends BinarySearchTree<E
 	@Override
 	public void incCount(E data) {
 		insert(data);
+		//super.incCount(data);
+		//isBalanced();
 	}
 
 	private void insert(E data){

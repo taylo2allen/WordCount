@@ -6,9 +6,9 @@
                   -b    Use an Unbalanced BST to implement the DataCounter
                   -a    Use an AVL Tree
                     -h    Use a Hashtable
-                    -frequency     Print all the word/frequency pairs, ordered by frequency, and then by thewords in lexicographic order
-                    -num_unique     Print the number of unique words in the document. This is the totalnumber of distinct (different)
-                  words in the document. Words that appear more than onceare only counted as a single word for this statistic.
+                    -frequency     Print all the word/frequency pairs, ordered by frequency, and then by the words in lexicographic order
+                    -num_unique     Print the number of unique words in the document. This is the total number of distinct (different)
+                  words in the document. Words that appear more than once are only counted as a single word for this statistic.
  */
 
 import java.io.IOException;
