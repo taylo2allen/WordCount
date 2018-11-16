@@ -10,7 +10,7 @@ import java.util.Arrays;
 import static java.lang.Math.pow;
 
 public class HashTable implements DataCounter<String>{
-    private static final int DEFAULT_TABLE_SIZE = 10;
+    private static final int DEFAULT_TABLE_SIZE = 101;
     private HashEntry<String> [ ] array; // The array of elements
     private int occupied;                 // The number of occupied cells
     protected int size;                   //Size of data elements NOT the size of the array

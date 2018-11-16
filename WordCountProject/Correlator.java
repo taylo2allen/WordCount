@@ -35,7 +35,7 @@ public class Correlator {
 				word1 = reader.nextWord();
 			}
 		} catch (IOException e){
-			System.err.println("\nError processing the file \"" + file1 + "\" Exception: " + e + "\n");
+			System.err.println("\nError processing the file \"" + file1 + "\" \nException: " + e + "\n");
 			System.exit(1);
 		}
 		//check second file
@@ -49,7 +49,7 @@ public class Correlator {
 				word2 = reader.nextWord();
 			}
 		} catch (IOException e){
-			System.err.println("\nError processing the file \"" + file2 + "\" Exception: " + e + "\n");
+			System.err.println("\nError processing the file \"" + file2 + "\" \nException: " + e + "\n");
 			System.exit(1);
 		}
 

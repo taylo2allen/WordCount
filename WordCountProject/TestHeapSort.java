@@ -1,5 +1,3 @@
-import static org.junit.jupiter.api.Assertions.*;
-
 class TestHeapSort {
     public static void main(String[] args) {
         boolean dumpall = false, notest = false;
