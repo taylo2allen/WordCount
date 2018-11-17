@@ -65,12 +65,6 @@ real    0m 0.775s
 user    0m 1.245s
 sys     0m 0.100s
 
-javac *.java;time java Correlator -a texts/hamlet.txt texts/the-new-atlantis.txt 
-
-real    0m 0.718s
-user    0m 1.249s
-sys     0m 0.068s
-
 javac *.java;time java Correlator -h texts/hamlet.txt texts/the-new-atlantis.txt 
 
 real    0m 0.720s
