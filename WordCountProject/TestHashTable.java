@@ -1,8 +1,10 @@
-/**
- * Adapted from TestBinarySearchTree.java
- * Used to check the validity of our AVLTree.java
- *
+// Project:      WordCountProject
+// Module:       TestHashTable.java
+// Contributors: Taylor Allen, Sam Hendryx, Andrew Cash
+// Date:         11/16/18
+/* Purpose:      This program tests the functionality of HashTable.java
  */
+
 public class TestHashTable {
     public static void main(String[] args) {
         boolean dumpall = false, notest = false;

@@ -1,3 +1,10 @@
+// Project:      WordCountProject
+// Module:       TestHeapSort.java
+// Contributors: Taylor Allen, Sam Hendryx, Andrew Cash
+// Date:         11/10/18
+/* Purpose:      This program tests the functionality of HeapSort.java
+ */
+
 class TestHeapSort {
     public static void main(String[] args) {
         boolean dumpall = false, notest = false;

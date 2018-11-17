@@ -1,9 +1,10 @@
-/**************************************************************
-/	HeapSort Class
-/	Written by: Sam Hendryx for the team
-/	Description: Replaces the insert method in WordCount.java
-/	Takes in an unsorted array and sorts the array
-***************************************************************/
+// Project:      WordCountProject
+// Module:       HeapSort.java
+// Contributors: Taylor Allen, Sam Hendryx, Andrew Cash
+// Date:         10/25/18
+/* Purpose:      Replaces the insert sort method in WordCount.java
+                 Takes in an unsorted array and sorts the array
+ */
 
 public class HeapSort {
 
@@ -11,7 +12,7 @@ public class HeapSort {
         int n = arr.length - 1;                                 //last element of array
         int i;                                                  //parent key
         int j;                                                  //child key
-        DataCount<E> temp;                                         //temporary DataCounts holder
+        DataCount<E> temp;                                      //temporary DataCounts holder
 
         //bubble smaller items to the top
         for (i = (arr.length /2) - 1; i >= 0; i--){

@@ -1,19 +1,14 @@
 /* Project:      WordCountProject
-// Module:       Correlator.java
+// Module:       AVLTree.java
 // Contributors: Taylor Allen, Sam Hendryx, Andrew Cash
 // Date:         10/19/18
- Purpose:      The command line form for Correlator will be as follows:java Correlator -a [-frequency | -unique] <filename2>
-                  -a    Use an AVL Tree
-                 Uses a function to correlate two documents
+ Purpose:        Implementation of an AVLTree that extends BinarySearchTree.
  */
-public class AVLTree<E extends Comparable<? super E>> extends BinarySearchTree<E> implements DataCounter<E>{
-	//protected BSTNode overallRoot;
 
+public class AVLTree<E extends Comparable<? super E>> extends BinarySearchTree<E> implements DataCounter<E>{
 	@Override
 	public void incCount(E data) {
 		insert(data);
-		//super.incCount(data);
-		//isBalanced();
 	}
 
 	private void insert(E data){
@@ -33,30 +28,6 @@ public class AVLTree<E extends Comparable<? super E>> extends BinarySearchTree<E
 		else { node.count++; }
 
 		return balance(node);
-	}
-
-	public void isBalanced() {
-		isBalanced(overallRoot);
-		//if it isn't balanced, fix
-		//TODO::Switch statement to determine which case it is if tree is unbalanced.
-		//cases already implemented
-	}
-	//this method checks if the Tree is balanced
-	private int isBalanced(BSTNode root) {
-		if(root==null) {
-			return -1;
-		}
-		if(root!=null) {
-			int htRight = isBalanced(root.right);
-			int htLeft = isBalanced(root.left);
-
-			if(Math.abs(height(root.left)-height(root.right))>1||
-					height(root.left) != htLeft || height(root.right)
-					!= htRight) {
-				root = balance(root);
-			}
-		}
-		return height(root);
 	}
 	private int height(BSTNode currentNode )
 	{

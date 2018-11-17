@@ -9,14 +9,10 @@
                  Uses a function to correlate two documents
  */
 
-import javax.xml.crypto.Data;
-
 import static java.lang.Math.pow;
-
 import java.io.IOException;
 import java.text.NumberFormat;
 import java.util.HashMap;
-import java.util.Map;
 
 /**
  * An executable that counts the words in a files and prints out the counts in
@@ -76,15 +72,14 @@ public class Correlator {
 		for ( String word : wordFreq1.keySet()){
 			if (wordFreq2.containsKey(word)){
 				correlationSum += pow((wordFreq1.get(word) - wordFreq2.get(word)),2);
-				// System.out.println(word + "\t" + wordFreq1.get(word) + " - " + wordFreq2.get(word) + " = " + pow((wordFreq1.get(word) - wordFreq2.get(word)),2));
 			}
 		}
 		NumberFormat nf = NumberFormat.getInstance();
 		nf.setMinimumFractionDigits(4);
 		double out = 100 - (correlationSum*100);
 
-		System.out.println("The more similiar the document, the closer the Correlation metric will be to 0.\n"
-				+ "Correlation Metric: " + nf.format(out) + "%" /*nf.format(correlationSum) ((aveUnique1+aveUnique2)/2))*/);
+		System.out.println("The closer to 100%, the more similar the two documents are.\n"
+				+ "Correlation Percentage: " + nf.format(out) + "%");
 
 	}
 
@@ -113,69 +108,29 @@ public class Correlator {
 			freq = (double)c.count/totalNumWords;
 			if (freq < 0.01 && freq > 0.0001){
 				freq = ((freq - minRatio)/(maxRatio - minRatio));
-				//System.out.println(c.data + ": " + freq);
 				myMap.put(c.data, freq);
 			}
 		}
 		return myMap;
 	}
 
-	private DataCount<String>[] trim(DataCount<String>[] counts){
-		Map<String, Double> wordFreq = new HashMap<>();
-		int maxOccurrences = 0;
-		int minOccurrences = 0;
-		int totalNumWords = 0;
-		double freq = 0;
-
-		for (DataCount<String> c: counts){
-			if (maxOccurrences == 0) {
-				maxOccurrences = c.count;
-			}
-			minOccurrences = c.count;
-			totalNumWords += c.count;
-		}
-
-
-		for (DataCount<String> c : counts){
-			freq = c.count/(double)totalNumWords;
-			if (freq < 0.01 && freq > 0.0001) {
-				wordFreq.put(c.data, freq);
-			}
-		}
-
-		return counts;
-	}
-
 	/**
-	 * TODO Replace this comment with your own.
-	 *
-	 * Sort the count array in descending order of count. If two elements have
-	 * the same count, they should be in alphabetical order (for Strings, that
-	 * is. In general, use the compareTo method for the DataCount.data field).
-	 *
-	 * This code uses insertion sort. You should modify it to use a heap sort
-	 * sorting algorithm. NOTE: the current code assumes the array starts in
-	 * alphabetical order! You'll need to make your code deal with unsorted
-	 * arrays.
-	 *
-	 * The generic parameter syntax here is new, but it just defines E as a
-	 * generic parameter for this method, and constrains E to be Comparable. You
-	 * shouldn't have to change it.
+	 * Creates a new HeapSort object and uses it to sort the data.
 	 *
 	 * @param counts array to be sorted.
 	 */
 
 	private static <E extends Comparable<? super E>> void sortByDescendingCount(DataCount<E>[] counts){
 		HeapSort sortObject = new HeapSort();
-
-		//HeapSort Algorithm brought to you by Sam's Sanity and the letters "ahhhhhhhhhhhhhhh!"
+		//Sort using Heapsort
 		sortObject.heapSort(counts);
 	}
 
 	public static void main(String[] args){
-		CorrelatorSwitch(args);
+		correlatorSwitch(args);
 	}
-	private static void CorrelatorSwitch(String[] args){
+
+	private static void correlatorSwitch(String[] args){
 		try {
 			if (args[0].equals("-a")){
 				if (!args[1].equals(null) && !args[2].equals(null)){

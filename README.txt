@@ -4,7 +4,7 @@ README.TXT
 Andrew Cash, Taylor Allen, Sam Hendryx
 
 2) How long did the project take?
-Several weeks with alot of meetings.
+Several weeks with a lot of meetings.
 
 3) Before you started, which data structure did you expect would be the fastest?
 Probably Hash, then AVL Tree and lastly BST.
@@ -55,15 +55,19 @@ for all input, etc).
 
 If better is ease of coding and debugging, trees are better in
 our opinion. It was easier to visualize what the data should be with trees compared to
-the hash table. Due to the plethora of visualization tools online and the ablility to
+the hash table. Due to the plethora of visualization tools online and the ability to
 manipulate the data on paper.
 
 6) Are there cases in which a particular data structure performs really well or badly in
 the correlator? Enumerate the cases for each data structure.
 
+No implementation seemed to have a significant difference in the correlator than in WordCount
+
 7) Give a one to two paragraph explanation of whether or not you think Bacon wrote
 Shakespeare's plays based on the data you collected. No fancy statistical analysis
 here.
+
+
 
 8) What did you enjoy about this assignment? What did you hate? Could we have done
 anything better?
@@ -79,4 +83,4 @@ Taylor: I enjoyed working with a productive team and learned the benefits of pai
 along with working with git version control.The most difficult part of the project for me was
 the HashTable implementation which used alot of thinking. Something we could have done better
 is writing the documentation first rather than after the code is written, documentation would
-have gone alot better.
+have gone a lot better.

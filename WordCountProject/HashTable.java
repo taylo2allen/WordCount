@@ -1,24 +1,17 @@
 // Project:      WordCountProject
-// Module:       Correlator.java
+// Module:       HashTable.java
 // Contributors: Taylor Allen, Sam Hendryx, Andrew Cash
-// Date:         11/6/18
-/* Purpose:      The command line form for Correlator will be as follows:java Correlator -h [-frequency | -unique] <filename2>
+// Date:         10/28/18
+/* Purpose:      Implementation of a hashtable data structure.
 */
-
-import java.util.Arrays;
 
 import static java.lang.Math.pow;
 
 public class HashTable implements DataCounter<String>{
     private static final int DEFAULT_TABLE_SIZE = 101;
     private HashEntry<String> [ ] array; // The array of elements
-    private int occupied;                 // The number of occupied cells
-    protected int size;                   //Size of data elements NOT the size of the array
-    //public int key;                     //Ket for hashtable (created by hashcode)
-    //public DataCount<String>[] table;			//Array of DataCount<String>. Should hold our Word/Count pairs
-
-//    public String data;
-//    public int count;
+    private int occupied;                // The number of occupied cells
+    protected int size;                  //Size of data elements NOT the size of the array
 
     /**
      * Construct the hash table.
@@ -192,6 +185,7 @@ public class HashTable implements DataCounter<String>{
      * Internal method to allocate array.
      * @param arraySize the size of the array.
      */
+    @SuppressWarnings("unchecked")
     private void allocateArray( int arraySize )
     {
         array = new HashEntry[ nextPrime( arraySize ) ];
@@ -244,7 +238,6 @@ public class HashTable implements DataCounter<String>{
         for (HashEntry<String> entry : array) {
             if (entry != null && entry.isActive) {
                 counts[i] = new DataCount<>(entry.element, entry.count);
-                //System.out.println(entry.element + " " + entry.count + "\n");
                 i++;
             }
         }
@@ -296,6 +289,6 @@ public class HashTable implements DataCounter<String>{
             }
             return out;
         }
-        return "<empty tree>";
+        return "<empty table>";
     }
 }
