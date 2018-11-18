@@ -13,13 +13,13 @@ Probably Hash, then AVL Tree and lastly BST.
 |---------------------+-------------+-------------+-------------|
 | WordCount Frequency |         BST |         AVL |        Hash |
 |---------------------+-------------+-------------+-------------|
-| Real Time           |       0.795 |       0.882 |       1.187 |
+| Real Time (seconds) |       0.795 |       0.882 |       1.187 |
 |---------------------+-------------+-------------+-------------|
 | User Time           |       1.305 |       1.526 |       2.097 |
 |---------------------+-------------+-------------+-------------|
 | System Time         |       0.136 |       0.138 |       0.124 |
 |---------------------+-------------+-------------+-------------|
-| Average             | 0.745333333 | 0.848666667 |       1.136 |
+| Average~            |       0.745 |       0.849 |       1.136 |
 |---------------------+-------------+-------------+-------------|
 | WordCount Unique    |             |             |             |
 |---------------------+-------------+-------------+-------------|
@@ -29,7 +29,7 @@ Probably Hash, then AVL Tree and lastly BST.
 |---------------------+-------------+-------------+-------------|
 | System Time         |       0.057 |       0.101 |       0.069 |
 |---------------------+-------------+-------------+-------------|
-| Average             | 0.662666667 | 0.667333333 |       0.942 |
+| Average~            |       0.663 |       0.667 |       0.942 |
 |---------------------+-------------+-------------+-------------|
 | Correlator          |             |             |             |
 |---------------------+-------------+-------------+-------------|
@@ -39,10 +39,10 @@ Probably Hash, then AVL Tree and lastly BST.
 |---------------------+-------------+-------------+-------------|
 | System Time         |        0.04 |         0.1 |       0.073 |
 |---------------------+-------------+-------------+-------------|
-| Average             |       0.692 | 0.706666667 | 0.661333333 |
+| Average~            |       0.692 |       0.707 |       0.661 |
 |---------------------+-------------+-------------+-------------|
 
-We thought the Hash Implementation was going to be fastest, but we didn't take into
+    We thought the Hash Implementation was going to be fastest, but we didn't take into
 consideration that when the load factor is too large the table needs to be resized,
 so it was doing twice the work. Our BST Implementation was the fastest in most cases
 because it doesn't have the extra method to balance itself, which only is beneficial
@@ -53,7 +53,7 @@ hash tables? Note that you will need to define "better" (ease of coding, ease of
 debugging, memory usage, disk access patterns, runtime for average input, runtime
 for all input, etc).
 
-If better is ease of coding and debugging, trees are better in
+    If better is ease of coding and debugging, trees are better in
 our opinion. It was easier to visualize what the data should be with trees compared to
 the hash table. Due to the plethora of visualization tools online and the ability to
 manipulate the data on paper.
@@ -61,14 +61,21 @@ manipulate the data on paper.
 6) Are there cases in which a particular data structure performs really well or badly in
 the correlator? Enumerate the cases for each data structure.
 
-No implementation seemed to have a significant difference in the correlator than in WordCount
+    No implementation seemed to have a significant difference in the correlator than in 
+WordCount. For our data set the hash table was fastest. The run time of all of the
+structures was essentially indistinguishable, with perhaps one exception. That
+being that the system time of the AVL was more than twice as long as for a BST.
 
 7) Give a one to two paragraph explanation of whether or not you think Bacon wrote
 Shakespeare's plays based on the data you collected. No fancy statistical analysis
 here.
 
-We have come to the conculsion that Sir Fancsis Bacon did not write Shakespeare's plays. The
-data was inconclusive
+    We must reject the hypothesis that Bacon wrote Shakespeare's plays. The data of our
+correlator ranged from 27% to 98% when comparing the works of the two authors to each other.
+This range is too wide to be useful. It would seem that a more tightly correlated data set
+would indictate that the documents have the same author. Additionally, running the correlator
+with two documents from the same author also renders correlation that is inconclusive. We 
+must therefore conclude that more or better tests are needed to make an assessment.
 
 8) What did you enjoy about this assignment? What did you hate? Could we have done
 anything better?
