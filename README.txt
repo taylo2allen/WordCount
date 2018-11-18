@@ -67,7 +67,8 @@ No implementation seemed to have a significant difference in the correlator than
 Shakespeare's plays based on the data you collected. No fancy statistical analysis
 here.
 
-
+We have come to the conculsion that Sir Fancsis Bacon did not write Shakespeare's plays. The
+data was inconclusive
 
 8) What did you enjoy about this assignment? What did you hate? Could we have done
 anything better?
