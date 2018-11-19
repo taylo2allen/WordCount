@@ -60,7 +60,7 @@ public class HeapSort {
         if (arr[j].count > arr[j+1].count){
             //j+1 is the smallest index. increment j.
             j++;
-        }
+        } else
         //if they are equal, compare alphabetically
         if (arr[j].count == arr[j+1].count){
             //if counts[j].data is less than counts[j+1].data then increment j.

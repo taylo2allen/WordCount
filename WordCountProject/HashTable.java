@@ -8,7 +8,7 @@
 import static java.lang.Math.pow;
 
 public class HashTable implements DataCounter<String>{
-    private static final int DEFAULT_TABLE_SIZE = 101;
+    private static final int DEFAULT_TABLE_SIZE = 11;
     private HashEntry<String> [ ] array; // The array of elements
     private int occupied;                // The number of occupied cells
     protected int size;                  //Size of data elements NOT the size of the array
@@ -43,11 +43,11 @@ public class HashTable implements DataCounter<String>{
             return false;
         }
 
-        if( array[ currentPos ] == null )
+        if( array[ currentPos ] == null ) {
             ++occupied;
-        array[ currentPos ] = new HashEntry<>( x, true );
-        size++;
-
+            array[currentPos] = new HashEntry<>(x, true);
+            size++;
+        }
         // Rehash; see Section 5.5
         if( occupied > array.length / 2 )
             rehash( );
@@ -62,10 +62,11 @@ public class HashTable implements DataCounter<String>{
             System.out.println("Oops! A collision we were NOT expecting!");
             return false;
         }
-        if( array[ currentPos ] == null )
+        if( array[ currentPos ] == null ) {
             ++occupied;
-        array[ currentPos ] = new HashEntry<>(x, count, true);
-        size++;
+            array[currentPos] = new HashEntry<>(x, count, true);
+            size++;
+        }
 
         return true;
     }
@@ -241,7 +242,6 @@ public class HashTable implements DataCounter<String>{
                 i++;
             }
         }
-
         return counts;
     }
 
