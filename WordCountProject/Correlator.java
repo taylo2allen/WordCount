@@ -19,8 +19,8 @@ import java.util.HashMap;
  * descending order. You will need to modify this file.
  */
 public class Correlator {
-	private static void countWords(String file1, String file2){
-		DataCounter<String> counter1 = new BinarySearchTree<String>();
+    private static void countWords(DataCounter<String> counter1,DataCounter<String> counter2,String file1, String file2){
+		// DataCounter<String> counter1 = new BinarySearchTree<String>();
 
 		//check first file
 		try {
@@ -35,7 +35,7 @@ public class Correlator {
 			System.exit(1);
 		}
 		//check second file
-		DataCounter<String> counter2 = new BinarySearchTree<String>();
+		// DataCounter<String> counter2 = new BinarySearchTree<String>();
 
 		try {
 			FileWordReader reader = new FileWordReader(file2);
@@ -133,20 +133,26 @@ public class Correlator {
 	private static void correlatorSwitch(String[] args){
 		try {
 			if (args[0].equals("-a")){
+          DataCounter<String> counter1 = new AVLTree<>();
+          DataCounter<String> counter2 = new AVLTree<>();
 				if (!args[1].equals(null) && !args[2].equals(null)){
-					countWords(args[1],args[2]);
+          countWords(counter1,counter2,args[1],args[2]);
 				}
 				else {throw new Exception("Invalid argument in arg1 & arg2 must be valid filenames.");}
 			}
 			else if (args[0].equals("-b")){
+          DataCounter<String> counter1 = new BinarySearchTree<String>();
+          DataCounter<String> counter2 = new BinarySearchTree<String>();
 				if (!args[1].equals(null) && !args[2].equals(null)){
-					countWords(args[1],args[2]);
+          countWords(counter1,counter2,args[1],args[2]);
 				}
 				else {throw new Exception("Invalid argument in arg1 & arg2 must be valid filenames.");}
 			}
 			else if (args[0].equals("-h")){
+          DataCounter<String> counter1 = new HashTable();
+          DataCounter<String> counter2 = new HashTable();
 				if (!args[1].equals(null) && !args[2].equals(null)){
-					countWords(args[1],args[2]);
+          countWords(counter1,counter2,args[1],args[2]);
 				}
 				else {throw new Exception("Invalid argument in arg1 & arg2 must be valid filenames.");}
 			}
